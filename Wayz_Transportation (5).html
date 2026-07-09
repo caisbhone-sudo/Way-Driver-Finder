@@ -1,0 +1,1602 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///C:/Users/TRY/Downloads/Telegram%20Desktop/index%20(1).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wayz Driver Finer — Trusted Rides Across Naypyitaw</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./Wayz Driver Finer — Trusted Rides Across Naypyitaw_files/css2" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+ .hero-content h1, 
+.hero-text h1,
+.hero h1 {
+    line-height: 1.6 !important;
+}
+/* ============================================================
+   RESET + TOKENS
+   ============================================================ */
+* { margin:0; padding:0; box-sizing:border-box; }
+:root{
+  --ink:#0f2620;
+  --ink-soft:#4d6059;
+  --teal-deep:#0b332c;
+  --teal:#124f43;
+  --teal-mid:#1c7d68;
+  --teal-light:#2fa88d;
+  --gold:#d7a441;
+  --gold-light:#f1c874;
+  --gold-deep:#a97b23;
+  --cream:#faf6ec;
+  --cream-dim:#f0e9d6;
+  --white:#ffffff;
+  --line:#e3dcc8;
+  --danger:#c1483a;
+  --success:#2f9c6b;
+  --radius:20px;
+  --radius-sm:12px;
+  --shadow:0 24px 60px -24px rgba(11,51,44,.35);
+  --shadow-sm:0 10px 26px -14px rgba(11,51,44,.3);
+  --transition:all .25s cubic-bezier(.4,0,.2,1);
+  --font-display:'Fraunces', serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'IBM Plex Mono', monospace;
+}
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--cream);
+  line-height:1.6;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,h5{ font-family:var(--font-display); letter-spacing:-0.01em; }
+a{ color:inherit; }
+button{ font-family:inherit; }
+:focus-visible{ outline:3px solid var(--gold); outline-offset:2px; }
+body.lang-my, body.lang-my h1, body.lang-my h2, body.lang-my h3, body.lang-my h4, body.lang-my h5{
+  font-family:'Noto Sans Myanmar', var(--font-body);
+}
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+header{
+  position:sticky; top:0; z-index:1000;
+  background:linear-gradient(120deg, var(--teal-deep), var(--teal));
+  box-shadow:0 6px 30px rgba(0,0,0,.15);
+}
+.header-container{
+  max-width:1400px; margin:0 auto; padding:0 24px;
+  display:flex; align-items:center; justify-content:space-between; height:78px; gap:16px;
+}
+.logo{ display:flex; align-items:center; gap:12px; cursor:pointer; background:none; border:none; }
+.logo-icon{
+  width:44px; height:44px; border-radius:50%;
+  background:linear-gradient(135deg, var(--gold), var(--gold-light));
+  display:flex; align-items:center; justify-content:center; font-size:22px;
+  box-shadow:0 4px 14px rgba(215,164,65,.4);
+}
+.logo-text h1{ color:var(--white); font-size:21px; font-weight:700; line-height:1; }
+.logo-text p{ color:var(--gold-light); font-size:10px; text-transform:uppercase; letter-spacing:2px; font-weight:600; margin-top:3px; }
+
+nav.main-nav{ display:flex; }
+.nav-links{ display:flex; list-style:none; gap:2px; }
+.nav-links a{
+  color:rgba(255,255,255,.8); text-decoration:none; padding:16px; font-weight:600;
+  font-size:13.5px; cursor:pointer; border:none; background:none; position:relative; transition:var(--transition);
+}
+.nav-links a::after{
+  content:''; position:absolute; bottom:8px; left:16px; right:16px; height:2px;
+  background:var(--gold); transform:scaleX(0); transform-origin:left; transition:var(--transition);
+}
+.nav-links a:hover{ color:var(--white); }
+.nav-links a:hover::after,
+.nav-links a.active::after{ transform:scaleX(1); }
+.nav-links a.active{ color:var(--gold-light); }
+
+.header-actions{ display:flex; align-items:center; gap:10px; }
+.call-btn-header{
+  display:flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg, var(--gold), var(--gold-deep));
+  color:var(--teal-deep); padding:11px 22px; border-radius:50px; text-decoration:none;
+  font-weight:800; font-size:13px; transition:var(--transition); box-shadow:var(--shadow-sm);
+}
+.call-btn-header:hover{ transform:translateY(-3px); box-shadow:0 14px 30px -8px rgba(215,164,65,.55); }
+.lang-toggle{ display:flex; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.22); border-radius:50px; padding:3px; gap:2px; }
+.lang-btn{ background:none; border:none; color:rgba(255,255,255,.75); font-weight:700; font-size:12px; padding:7px 14px; border-radius:50px; cursor:pointer; transition:var(--transition); letter-spacing:.03em; }
+.lang-btn:hover{ color:#fff; }
+.lang-btn.active{ background:linear-gradient(135deg, var(--gold), var(--gold-light)); color:var(--teal-deep); }
+.mobile-menu-toggle{
+  display:none; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.2); color:#fff;
+  font-size:20px; width:42px; height:42px; border-radius:10px; cursor:pointer;
+}
+.mobile-nav{ display:flex; flex-direction:column; background:var(--teal-deep); max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.mobile-nav.open{ max-height:400px; border-top:1px solid rgba(255,255,255,.1); }
+.mobile-nav a{ color:rgba(255,255,255,.85); text-decoration:none; padding:16px 24px; font-weight:600; font-size:14px; border-bottom:1px solid rgba(255,255,255,.06); }
+.mobile-nav a.active{ color:var(--gold-light); }
+
+/* ============================================================
+   SECTIONS / GENERIC
+   ============================================================ */
+section{ padding:90px 24px; max-width:1360px; margin:0 auto; display:none; }
+section.active{ display:block; animation:fadeUp .5s ease; }
+@keyframes fadeUp{ from{ opacity:0; transform:translateY(18px);} to{ opacity:1; transform:translateY(0);} }
+
+.eyebrow{ display:inline-block; font-family:var(--font-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-mid); font-weight:600; margin-bottom:10px; }
+.section-header{ text-align:center; max-width:680px; margin:0 auto 56px; }
+.section-header h3{ font-size:40px; font-weight:700; color:var(--ink); margin-bottom:14px; }
+.section-header p{ font-size:17px; color:var(--ink-soft); }
+.accent-line{ width:56px; height:3px; background:linear-gradient(90deg, var(--gold), var(--gold-deep)); margin:16px auto 0; border-radius:2px; }
+
+/* ============================================================
+   HERO / HOME
+   ============================================================ */
+#home{ padding:0; max-width:none; }
+.hero{
+  position:relative; overflow:hidden; color:var(--white);
+ background: radial-gradient(120% 120% at 20% 0%, #164c40 0%, var(--teal-deep) 55%, #082019);
+  padding: 100px 24px 80px;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding: 120px 24px 200px;
+  }
+}
+.hero-skyline{ position:absolute; left:0; right:0; bottom:0; width:100%; height:auto; opacity:.9; pointer-events:none; }
+.hero-content{ position:relative; z-index:2; max-width:780px; margin:0 auto; }
+.hero .eyebrow{ color:var(--gold-light); }
+.hero h2{ font-size:54px; font-weight:700; line-height:1.6; margin-bottom:20px; }
+.hero h2 em{ font-style:normal; color:var(--gold-light); }
+.hero p{ font-size:18px; color:rgba(255,255,255,.82); max-width:560px; margin:0 auto 34px; font-weight:400; }
+.hero-buttons{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:46px; }
+.btn-primary,.btn-secondary,.btn-gold,.btn-outline-light{
+  padding:15px 34px; border-radius:50px; text-decoration:none; font-weight:700; font-size:14.5px;
+  border:none; cursor:pointer; transition:var(--transition); display:inline-flex; align-items:center; gap:8px;
+}
+.btn-gold{ background:linear-gradient(135deg, var(--gold), var(--gold-deep)); color:var(--teal-deep); box-shadow:0 14px 30px -10px rgba(215,164,65,.55); }
+.btn-gold:hover{ transform:translateY(-3px); box-shadow:0 18px 36px -8px rgba(215,164,65,.65); }
+.btn-outline-light{ background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,.55); }
+.btn-outline-light:hover{ background:rgba(255,255,255,.12); transform:translateY(-3px); }
+
+.trust-strip{
+  position:relative; z-index:2; max-width:920px; margin:0 auto; display:grid;
+  grid-template-columns:repeat(4,1fr); gap:1px; background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.16); border-radius:var(--radius-sm); overflow:hidden; backdrop-filter:blur(6px);
+}
+.trust-item{ background:rgba(11,51,44,.35); padding:20px 12px; text-align:center; }
+.trust-item .num{ font-family:var(--font-mono); font-size:22px; font-weight:700; color:var(--gold-light); }
+.trust-item .lbl{ font-size:11px; color:rgba(255,255,255,.75); text-transform:uppercase; letter-spacing:.06em; margin-top:4px; }
+
+.home-body{ max-width:1360px; margin:0 auto ; position:relative; z-index:3; padding:0 24px 20px; }
+
+.why-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:22px; margin-top:40px; }
+.why-card{
+  background:var(--white); border-radius:var(--radius); padding:30px 24px; box-shadow:var(--shadow-sm);
+  border:1px solid var(--line); transition:var(--transition);
+}
+.why-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); border-color:var(--gold-light); }
+.why-icon{
+  width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+  font-size:24px; background:linear-gradient(135deg, var(--teal-mid), var(--teal-deep)); color:#fff; margin-bottom:16px;
+}
+.why-card h5{ font-size:16px; font-weight:700; margin-bottom:8px; color:var(--ink); }
+.why-card p{ font-size:13.5px; color:var(--ink-soft); line-height:1.7; }
+
+.home-cta-banner{
+  margin-top:70px; background:linear-gradient(120deg, var(--teal), var(--teal-deep));
+  border-radius:var(--radius); padding:44px; display:flex; align-items:center; justify-content:space-between; gap:24px;
+  color:#fff; flex-wrap:wrap;
+}
+.home-cta-banner h4{ font-size:26px; font-weight:700; margin-bottom:8px; }
+.home-cta-banner p{ color:rgba(255,255,255,.8); font-size:14.5px; max-width:420px; }
+
+/* ============================================================
+   DRIVERS SECTION
+   ============================================================ */
+#drivers{ background:var(--cream); }
+.search-card{
+  background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
+  padding:34px; box-shadow:var(--shadow-sm); margin-bottom:46px;
+}
+.search-card-title{ font-size:22px; font-weight:700; margin-bottom:6px; color:var(--ink); display:flex; align-items:center; gap:10px; }
+.search-card-sub{ font-size:13.5px; color:var(--ink-soft); margin-bottom:26px; }
+.search-grid{ display:grid; grid-template-columns:1fr 1fr auto; gap:16px; align-items:flex-end; }
+.form-group{ display:flex; flex-direction:column; }
+.form-group-head{ display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.form-group label{ font-weight:700; color:var(--ink); font-size:13px; }
+.gps-btn{
+  background:var(--cream-dim); color:var(--teal); border:1px solid var(--line); font-weight:700;
+  font-size:11px; padding:5px 10px; border-radius:20px; cursor:pointer; transition:var(--transition);
+}
+.gps-btn:hover{ background:var(--gold-light); color:var(--teal-deep); }
+.form-group select{
+  padding:13px 14px; border:2px solid var(--line); border-radius:10px; font-size:14px;
+  font-family:inherit; background:var(--cream); transition:var(--transition); color:var(--ink); cursor:pointer;
+}
+.form-group select:disabled{ opacity:.55; cursor:not-allowed; }
+.form-group select:focus{ outline:none; border-color:var(--teal-mid); box-shadow:0 0 0 4px rgba(28,125,104,.12); }
+.search-btn{
+  background:linear-gradient(135deg, var(--gold), var(--gold-deep)); color:var(--teal-deep);
+  padding:13px 30px; border:none; border-radius:10px; cursor:pointer; font-weight:800; font-size:13.5px;
+  transition:var(--transition); white-space:nowrap;
+}
+.search-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px -8px rgba(215,164,65,.5); }
+.search-hint{ margin-top:14px; font-size:12.5px; color:var(--ink-soft); }
+.search-hint b{ color:var(--teal); }
+
+.route-panel{ display:none; grid-template-columns:.38fr 2.7fr; gap:22px; margin-bottom:46px; align-items:stretch; }
+.route-panel.active{ display:grid; animation:fadeUp .45s ease; }
+.meter-card{
+  background:var(--teal-deep); color:#fff; border-radius:var(--radius); padding:14px; display:flex; flex-direction:column; gap:9px;
+}
+.meter-title{ font-size:9.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--gold-light); font-weight:700; }
+.meter-route{ font-size:11.5px; color:rgba(255,255,255,.85); line-height:1.4; }
+.meter-route b{ color:#fff; }
+.meter-readout{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; margin-top:auto; }
+.meter-box{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:8px; padding:6px 4px; text-align:center; transition:var(--transition); }
+.meter-box .val{ font-family:var(--font-mono); font-size:12.5px; font-weight:700; color:var(--gold-light); transition:var(--transition); }
+.meter-box .lbl{ font-size:7.5px; text-transform:uppercase; letter-spacing:.05em; color:rgba(255,255,255,.6); margin-top:2px; }
+#map{ height:100%; width:100%; border-radius:var(--radius); cursor:pointer; background:#e7e3d5; }
+.map-click-hint{ font-size:11.5px; color:rgba(255,255,255,.65); text-align:center; margin-top:-4px; }
+.map-wrap{
+  position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+  border:1px solid var(--line); height:820px; background:#e7e3d5;
+}
+.route-note{
+  grid-column:1/-1; background:var(--cream-dim); border:1px solid var(--line); border-radius:var(--radius-sm);
+  padding:14px 18px; font-size:13px; color:var(--ink-soft); line-height:1.6;
+}
+
+/* ============================================================
+   MAP — Grab-style presentation layer
+   ============================================================ */
+.map-locate-btn{
+  position:absolute; z-index:650; top:16px; right:16px;
+  width:44px; height:44px; border-radius:50%; border:none;
+  background:var(--white); color:var(--teal); font-size:18px;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  box-shadow:0 8px 20px -6px rgba(11,51,44,.4); transition:var(--transition);
+}
+.map-locate-btn:hover{ background:var(--teal); color:#fff; transform:scale(1.06); }
+.map-legend{
+  position:absolute; z-index:650; left:16px; bottom:16px;
+  background:rgba(255,255,255,.94); backdrop-filter:blur(6px);
+  border-radius:14px; padding:10px 14px; display:flex; gap:14px;
+  box-shadow:0 8px 20px -8px rgba(11,51,44,.35); font-size:11px; font-weight:700; color:var(--ink-soft);
+}
+.map-legend span{ display:flex; align-items:center; gap:6px; }
+.map-legend i{ width:10px; height:10px; border-radius:50%; display:inline-block; box-shadow:0 0 0 2px #fff, 0 0 0 3px rgba(0,0,0,.08); }
+.map-legend .dot-hub{ background:var(--gold); }
+.map-legend .dot-spot{ background:var(--teal-mid); }
+.map-legend .dot-pick{ background:var(--success); }
+.map-legend .dot-dest{ background:var(--danger); }
+.map-loading{
+  position:absolute; inset:0; z-index:640; display:flex; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px; background:var(--cream-dim); color:var(--ink-soft); font-size:13px; font-weight:600;
+  transition:opacity .3s ease;
+}
+.map-loading .spinner{
+  width:30px; height:30px; border-radius:50%; border:3px solid var(--line); border-top-color:var(--teal-mid);
+  animation:spin 0.8s linear infinite;
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+
+/* Custom Leaflet pin markers (teardrop), built with divIcon so no external
+   image assets are required — keeps everything self-contained in one file. */
+.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35)); }
+.wayz-pin .pin-body{
+  position:absolute; top:0; left:0; width:34px; height:34px; border-radius:50% 50% 50% 0;
+  transform:rotate(45deg); border:2px solid #fff;
+}
+.wayz-pin .pin-dot{
+  position:absolute; top:9px; left:9px; width:16px; height:16px; border-radius:50%; background:#fff;
+}
+.wayz-pin.pin-hub .pin-body{ background:var(--gold-deep); }
+.wayz-pin.pin-spot .pin-body{ background:var(--teal-mid); }
+.wayz-pin.pin-pickup{ width:40px; height:52px; }
+.wayz-pin.pin-pickup .pin-body{ background:var(--success); width:40px; height:40px; }
+.wayz-pin.pin-pickup .pin-dot{ top:11px; left:11px; width:18px; height:18px; }
+.wayz-pin.pin-dest{ width:40px; height:52px; }
+.wayz-pin.pin-dest .pin-body{ background:var(--danger); width:40px; height:40px; }
+.wayz-pin.pin-dest .pin-dot{ top:11px; left:11px; width:18px; height:18px; }
+.wayz-pin-pulse{
+  position:absolute; top:100%; left:50%; width:16px; height:16px; margin-left:-8px; margin-top:-8px;
+  border-radius:50%; background:currentColor; opacity:.35; animation:pinPulse 1.8s ease-out infinite;
+}
+.pin-pickup .wayz-pin-pulse{ color:var(--success); }
+.pin-dest .wayz-pin-pulse{ color:var(--danger); }
+@keyframes pinPulse{ 0%{ transform:scale(.4); opacity:.5; } 100%{ transform:scale(2.2); opacity:0; } }
+
+.wayz-tooltip.leaflet-tooltip{
+  background:var(--ink); color:#fff; border:none; border-radius:8px; font-family:var(--font-body);
+  font-size:12px; font-weight:600; padding:6px 10px; box-shadow:0 8px 18px -8px rgba(0,0,0,.5);
+}
+.wayz-tooltip.leaflet-tooltip::before{ border-top-color:var(--ink); }
+.leaflet-control-zoom{ border:none !important; box-shadow:0 8px 20px -8px rgba(11,51,44,.35) !important; border-radius:12px !important; overflow:hidden; }
+.leaflet-control-zoom a{ background:#fff !important; color:var(--teal-deep) !important; font-weight:700 !important; }
+.leaflet-control-zoom a:hover{ background:var(--cream-dim) !important; }
+.leaflet-control-attribution{ background:rgba(255,255,255,.75) !important; font-size:9.5px !important; border-radius:6px 0 0 0; }
+
+.drivers-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:26px; }
+.driver-card{
+  background:var(--white); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-sm);
+  border:1px solid var(--line); display:flex; flex-direction:column; transition:var(--transition); animation:fadeUp .5s ease;
+}
+.driver-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow); }
+.driver-top{
+  background:linear-gradient(135deg, var(--teal), var(--teal-deep)); height:150px; position:relative;
+  display:flex; align-items:center; justify-content:center; font-size:74px;
+}
+.driver-badge{
+  position:absolute; top:14px; right:14px; background:rgba(255,255,255,.94); color:var(--teal-deep);
+  padding:6px 12px; border-radius:50px; font-size:11px; font-weight:800; display:flex; align-items:center; gap:5px;
+}
+.driver-body{ padding:22px; display:flex; flex-direction:column; gap:14px; flex-grow:1; }
+.driver-name{ font-size:19px; font-weight:700; color:var(--ink); }
+.driver-base{ font-size:11.5px; color:var(--gold-deep); text-transform:uppercase; font-weight:700; letter-spacing:.05em; }
+
+.driver-phone{ display:flex; align-items:center; gap:8px; font-size:14px; color:var(--teal); font-weight:700; font-family:var(--font-mono); }
+
+.driver-meta{ display:flex; gap:16px; padding:12px 0; border-top:1px dashed var(--line); border-bottom:1px dashed var(--line); font-size:12.5px; color:var(--ink-soft); }
+.driver-meta span{ display:block; }
+.driver-meta b{ display:block; color:var(--ink); font-size:13.5px; font-family:var(--font-mono); }
+
+.call-now-btn{
+  margin-top:auto; background:linear-gradient(135deg, var(--gold), var(--gold-deep)); color:var(--teal-deep);
+  border:none; padding:14px 18px; border-radius:10px; cursor:pointer; font-weight:800; font-size:13.5px;
+  text-transform:uppercase; letter-spacing:.04em; transition:var(--transition); display:flex; align-items:center;
+  justify-content:center; gap:8px; text-decoration:none;
+}
+.call-now-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 24px -8px rgba(215,164,65,.5); }
+
+.empty-state{ grid-column:1/-1; text-align:center; padding:64px 24px; background:var(--white); border:1px dashed var(--line); border-radius:var(--radius); }
+.empty-state-icon{ font-size:56px; margin-bottom:16px; }
+.empty-state h4{ font-size:21px; color:var(--ink); margin-bottom:10px; }
+.empty-state p{ color:var(--ink-soft); font-size:14px; max-width:420px; margin:0 auto 20px; }
+
+/* ============================================================
+   DRIVER LIST SECTION
+   ============================================================ */
+#driverlist{ background:var(--cream); }
+.roster-search-row{ display:grid; grid-template-columns:1fr 220px; gap:14px; }
+.roster-search-input,
+.roster-vehicle-filter{
+  padding:13px 16px; border:2px solid var(--line); border-radius:10px; font-size:14px;
+  font-family:inherit; background:var(--cream); color:var(--ink); transition:var(--transition);
+}
+.roster-search-input:focus, .roster-vehicle-filter:focus{
+  outline:none; border-color:var(--teal-mid); box-shadow:0 0 0 4px rgba(28,125,104,.12);
+}
+.roster-vehicle-filter{ cursor:pointer; }
+.driver-card.dimmed{ display:none; }
+
+/* ============================================================
+   SERVICES — CITY TOUR SPOTLIGHT
+   ============================================================ */
+#services{ background:var(--white); }
+.city-tour-card{
+  display:grid; grid-template-columns:1fr 1fr; gap:0; background:linear-gradient(135deg, var(--teal-deep), var(--teal));
+  border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
+}
+.city-tour-media{
+  background:radial-gradient(120% 120% at 80% 20%, #1c7d68 0%, #0b332c 70%);
+  display:flex; align-items:center; justify-content:center; font-size:130px; color:rgba(255,255,255,.9); min-height:340px;
+}
+.city-tour-info{ padding:48px; color:#fff; display:flex; flex-direction:column; justify-content:center; gap:16px; }
+.city-tour-info .eyebrow{ color:var(--gold-light); }
+.city-tour-info h4{ font-size:30px; font-weight:700; }
+.city-tour-info p{ color:rgba(255,255,255,.82); font-size:15px; }
+.city-tour-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-top:10px; }
+
+/* ============================================================
+   ABOUT
+   ============================================================ */
+#about{ background:var(--cream); }
+.about-container{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.about-content h4{ font-size:32px; font-weight:700; margin-bottom:18px; color:var(--ink); }
+.about-content p{ font-size:15.5px; color:var(--ink-soft); line-height:1.85; margin-bottom:16px; }
+.about-highlights{ display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:26px; }
+.highlight{ display:flex; align-items:flex-start; gap:14px; }
+.highlight-icon{
+  width:42px; height:42px; border-radius:12px; background:linear-gradient(135deg, var(--gold), var(--gold-deep));
+  display:flex; align-items:center; justify-content:center; color:var(--teal-deep); font-weight:800; flex-shrink:0;
+}
+.highlight h5{ font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:3px; }
+.highlight p{ font-size:12.5px; color:var(--ink-soft); margin:0; }
+.about-image{
+  border-radius:var(--radius); min-height:420px; background:linear-gradient(150deg, var(--teal), var(--teal-deep));
+  display:flex; align-items:center; justify-content:center; font-size:150px; color:rgba(255,255,255,.15); box-shadow:var(--shadow);
+  position:relative; overflow:hidden;
+}
+.about-stats{ position:absolute; bottom:0; left:0; right:0; background:rgba(11,51,44,.75); backdrop-filter:blur(4px); display:flex; }
+.about-stats div{ flex:1; text-align:center; padding:16px 8px; border-right:1px solid rgba(255,255,255,.1); }
+.about-stats div:last-child{ border-right:none; }
+.about-stats .val{ font-family:var(--font-mono); color:var(--gold-light); font-weight:700; font-size:18px; }
+.about-stats .lbl{ font-size:10px; color:rgba(255,255,255,.7); text-transform:uppercase; letter-spacing:.05em; }
+
+/* ============================================================
+   CONTACT
+   ============================================================ */
+#contact{ background:linear-gradient(150deg, var(--teal-deep), var(--teal)); color:#fff; }
+.contact-container{ display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+.contact-info h4{ font-size:30px; font-weight:700; margin-bottom:28px; }
+.contact-item{ display:flex; gap:18px; margin-bottom:24px; align-items:flex-start; }
+.contact-icon{
+  width:48px; height:48px; border-radius:14px; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.16);
+  display:flex; align-items:center; justify-content:center; font-size:21px; flex-shrink:0;
+}
+.contact-item h5{ font-size:16px; font-weight:700; margin-bottom:4px; }
+.contact-item p{ opacity:.82; font-size:14px; line-height:1.6; }
+.contact-quick-actions{ display:flex; gap:12px; margin-top:8px; flex-wrap:wrap; }
+.contact-form{ background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.14); border-radius:var(--radius); padding:30px; display:flex; flex-direction:column; gap:14px; }
+.contact-form input, .contact-form textarea{
+  padding:13px 15px; border:1.5px solid rgba(255,255,255,.2); border-radius:10px; font-size:14px; font-family:inherit;
+  background:rgba(255,255,255,.08); color:#fff; transition:var(--transition);
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder{ color:rgba(255,255,255,.55); }
+.contact-form input:focus, .contact-form textarea:focus{ outline:none; border-color:var(--gold); background:rgba(255,255,255,.12); }
+.contact-form textarea{ resize:vertical; min-height:130px; }
+.contact-form button{
+  background:linear-gradient(135deg, var(--gold), var(--gold-deep)); color:var(--teal-deep); padding:14px 20px;
+  border:none; border-radius:10px; cursor:pointer; font-weight:800; font-size:13.5px; text-transform:uppercase;
+  letter-spacing:.04em; transition:var(--transition);
+}
+.contact-form button:hover{ transform:translateY(-2px); box-shadow:0 12px 24px -8px rgba(215,164,65,.5); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24px 30px; border-top:3px solid var(--gold); }
+.footer-inner{ max-width:1360px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+.footer-links{ display:flex; gap:20px; flex-wrap:wrap; }
+.footer-links a{ text-decoration:none; color:rgba(255,255,255,.75); font-size:13px; font-weight:600; cursor:pointer; }
+.footer-links a:hover{ color:var(--gold-light); }
+.footer-bottom{ text-align:center; font-size:12px; color:rgba(255,255,255,.5); margin-top:26px; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast{
+  position:fixed; bottom:24px; right:24px; background:var(--success); color:#fff; padding:15px 24px;
+  border-radius:12px; box-shadow:0 12px 30px rgba(0,0,0,.25); display:none; z-index:3000; font-size:13.5px; font-weight:600;
+  max-width:320px;
+}
+.toast.active{ display:block; animation:slideIn .3s ease; }
+.toast.error{ background:var(--danger); }
+@keyframes slideIn{ from{ transform:translateX(120%); opacity:0;} to{ transform:translateX(0); opacity:1;} }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 980px){
+  .why-grid{ grid-template-columns:1fr 1fr; }
+  .about-container, .contact-container{ grid-template-columns:1fr; }
+  .route-panel.active{ grid-template-columns:1fr; }
+  .map-wrap{ height:460px; }
+  .city-tour-card{ grid-template-columns:1fr; }
+  .city-tour-media{ min-height:220px; font-size:90px; }
+  .roster-search-row{ grid-template-columns:1fr; }
+}
+@media (max-width: 760px){
+  nav.main-nav{ display:none; }
+  .mobile-menu-toggle{ display:block; }
+  .hero h2{ font-size:36px; }
+  .hero{ padding:70px 20px 170px; }
+  .section-header h3{ font-size:30px; }
+  .search-grid{ grid-template-columns:1fr; }
+  .trust-strip{ grid-template-columns:1fr 1fr; }
+  .why-grid{ grid-template-columns:1fr; }
+  .home-body{ margin-top: 40px !important; }
+  .about-highlights{ grid-template-columns:1fr; }
+  .home-cta-banner{ flex-direction:column; text-align:center; }
+  section{ padding:60px 18px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header>
+  <div class="header-container">
+    <button class="logo" onclick="navigateTo(&#39;home&#39;)" aria-label="Wayz Driver Finder">
+      <span class="logo-icon">🚕</span>
+      <span class="logo-text"><h1>Wayz</h1><p data-i18n="brandSub">Driver Finder</p></span>
+    </button>
+
+    <nav class="main-nav">
+      <ul class="nav-links">
+        <li><a onclick="navigateTo(&#39;home&#39;)" class="active" data-section="home" data-i18n="navHome">Home</a></li>
+        <li><a onclick="navigateTo(&#39;drivers&#39;)" data-section="drivers" data-i18n="navMap" class="">Map</a></li>
+        <li><a onclick="navigateTo(&#39;driverlist&#39;)" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a></li>
+        <li><a onclick="navigateTo(&#39;services&#39;)" data-section="services" data-i18n="navServices" class="">Services</a></li>
+        <li><a onclick="navigateTo(&#39;about&#39;)" data-section="about" data-i18n="navAbout" class="">About</a></li>
+        <li><a onclick="navigateTo(&#39;contact&#39;)" data-section="contact" data-i18n="navContact" class="">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-toggle" role="group" aria-label="Language switch">
+        <button type="button" class="lang-btn active" id="langBtnEn" onclick="setLanguage(&#39;en&#39;)">EN</button>
+        <button type="button" class="lang-btn" id="langBtnMy" onclick="setLanguage(&#39;my&#39;)">MY</button>
+      </div>
+      <button class="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a onclick="navigateTo(&#39;home&#39;)" class="active" data-section="home" data-i18n="navHome">Home</a>
+    <a onclick="navigateTo(&#39;drivers&#39;)" data-section="drivers" data-i18n="navMap" class="">Map</a>
+    <a onclick="navigateTo(&#39;driverlist&#39;)" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a>
+    <a onclick="navigateTo(&#39;services&#39;)" data-section="services" data-i18n="navServices" class="">Services</a>
+    <a onclick="navigateTo(&#39;about&#39;)" data-section="about" data-i18n="navAbout" class="">About</a>
+    <a onclick="navigateTo(&#39;contact&#39;)" data-section="contact" data-i18n="navContact" class="">Contact</a>
+  </div>
+</header>
+
+<!-- ============================================================
+     HOME
+     ============================================================ -->
+<section id="home" class="active">
+  <div class="hero">
+    <svg class="hero-skyline" viewBox="0 0 1200 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,220 L0,150 L60,150 L60,120 L90,120 L90,150 L150,150 L150,100 L180,60 L210,100 L210,150 L280,150 L280,130 L320,130 L320,150 L400,150 L400,90 L430,50 L440,30 L450,50 L460,90 L460,150 L560,150 L560,110 L600,110 L600,150 L680,150 L680,70 L710,35 L720,20 L730,35 L740,70 L740,150 L820,150 L820,120 L860,120 L860,150 L940,150 L940,100 L970,60 L1000,100 L1000,150 L1080,150 L1080,130 L1120,130 L1120,150 L1200,150 L1200,220 Z" fill="#082019" opacity="0.75"></path>
+    </svg>
+    <div class="hero-content">
+      <span class="eyebrow" data-i18n="heroEyebrow">Naypyitaw's Verified Driver Network</span>
+      <h2 data-i18n-html="heroTitle">Reliable Rides, <em>Every Route,</em><br>Every Corner of Naypyitaw</h2>
+      <p data-i18n="heroSub">Pick your route, see exactly which licensed driver covers it, and call them directly — no accounts, no waiting, no guesswork.</p>
+      <div class="hero-buttons">
+        <button class="btn-gold" onclick="navigateTo(&#39;drivers&#39;)" data-i18n="heroBtnFind">Find a Driver Now</button>
+        <a class="btn-outline-light" href="tel:+95966450054" data-i18n="heroBtnDispatch">📞 Speak to Dispatch</a>
+      </div>
+    </div>
+    <div class="trust-strip">
+      <div class="trust-item"><div class="num">9</div><div class="lbl" data-i18n="trustHubs">Pickup Hubs</div></div>
+      <div class="trust-item"><div class="num">45</div><div class="lbl" data-i18n="trustDrivers">Licensed Drivers</div></div>
+      <div class="trust-item"><div class="num">24/7</div><div class="lbl" data-i18n="trustDispatch">Dispatch Line</div></div>
+      <div class="trust-item"><div class="num">4.8★</div><div class="lbl" data-i18n="trustRating">Avg. Fleet Rating</div></div>
+    </div>
+  </div>
+
+  <div class="home-body">
+    <div class="section-header" style="margin-bottom:10px;">
+      <span class="eyebrow" data-i18n="whyEyebrow">Why Riders Trust Us</span>
+      <h3 data-i18n="whyTitle">Built for safety, transparency &amp; speed</h3>
+      <p data-i18n="whySub">Every driver on Wayz is tied to a fixed base and a verified set of routes — so you always know who's coming, and exactly what it costs.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🪪</div>
+        <h5 data-i18n="why1Title">Verified Drivers</h5>
+        <p data-i18n="why1Sub">Every driver is registered to a physical base location with a documented vehicle and years of experience on file.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🗺️</div>
+        <h5 data-i18n="why2Title">Flexible Vehicle Choices</h5>
+        <p data-i18n="why2Sub">Choose the right vehicle to match your trip, group size, and budget.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💳</div>
+        <h5 data-i18n="why3Title">Background Checked Drivers</h5>
+        <p data-i18n="why3Sub">All drivers are verified and background-checked to ensure passenger safety.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📞</div>
+        <h5 data-i18n="why4Title">Direct Contact</h5>
+        <p data-i18n="why4Sub">Every driver card shows a direct phone number — call and confirm your ride in seconds, no middlemen.</p>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- ============================================================
+     DRIVERS
+     ============================================================ -->
+<section id="drivers">
+  <div class="section-header">
+    <span class="eyebrow" data-i18n="driversEyebrow">Route-Matched Drivers</span>
+    <h3 data-i18n="driversTitle">Find Your Driver</h3>
+    <p data-i18n="driversSub">Choose your pickup and destination — from a dropdown or straight off the map — and we'll match you with the nearest available drivers.</p>
+  </div>
+
+  <div class="search-card">
+    <div class="search-card-title">📍 <span data-i18n="planRouteTitle">Plan Your Route</span></div>
+    <div class="search-card-sub" data-i18n="planRouteSub">Pickup and destination share the same list of locations. Choosing one removes it from the other list automatically.</div>
+    <div class="search-grid">
+      <div class="form-group">
+        <div class="form-group-head">
+          <label data-i18n="pickupLabel">Pickup Location</label>
+          <button class="gps-btn" onclick="useMyLocation()" type="button" data-i18n="useMyLocation">📍 Use my location</button>
+        </div>
+        <select id="pickupSelect" onchange="onPickupChange()"><option value="">Select pickup location</option></select>
+      </div>
+      <div class="form-group">
+        <div class="form-group-head"><label data-i18n="destLabel">Destination</label></div>
+        <select id="destSelect" onchange="onDestChange()" disabled="">
+          <option value="" data-i18n="selectPickupFirst">Select pickup location first</option>
+        </select>
+      </div>
+      <button class="search-btn" onclick="runSearch()" type="button" data-i18n="findDriversBtn">Find Drivers</button>
+    </div>
+    <div class="search-hint" id="searchHint" data-i18n-html="routeHint">Tip: try <b>NSPU – Naypyitaw State Polytechnic University → Uppatasanti Pagoda</b> to preview our City Tour route.</div>
+  </div>
+
+  <div class="route-panel" id="routePanel">
+    <div class="meter-card">
+      <div class="meter-title" data-i18n="routeMeter">Route Meter</div>
+      <div class="meter-route" id="meterRoute">—</div>
+      <div class="meter-readout" style="grid-template-columns:1fr 1fr;">
+        <div class="meter-box"><div class="val" id="meterDistance">--</div><div class="lbl" data-i18n="distanceLbl">Distance</div></div>
+        <div class="meter-box"><div class="val" id="meterDuration">--</div><div class="lbl" data-i18n="durationLbl">Duration</div></div>
+      </div>
+      <div class="map-click-hint" data-i18n="mapClickHint">🖱️ Tap a pin on the map to set it as pickup or destination</div>
+    </div>
+    <div class="map-wrap">
+      <div id="map"></div>
+      <div class="map-loading" id="mapLoading"><div class="spinner"></div><div data-i18n="mapLoadingLbl">Loading map…</div></div>
+      <button type="button" class="map-locate-btn" onclick="useMyLocation()" title="Use my location" aria-label="Use my location">📍</button>
+      <div class="map-legend">
+        <span><i class="dot-hub"></i> <span data-i18n="legendHub">Hub</span></span>
+        <span><i class="dot-spot"></i> <span data-i18n="legendSpot">Spot</span></span>
+        <span><i class="dot-pick"></i> <span data-i18n="legendPickup">Pickup</span></span>
+        <span><i class="dot-dest"></i> <span data-i18n="legendDest">Destination</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="drivers-grid" id="driversContainer">
+    <div class="empty-state">
+      <div class="empty-state-icon">🧭</div>
+      <h4>Choose a pickup hub and destination</h4>
+      <p>Available drivers depend on the exact route — each driver only serves a specific set of destinations from their base.</p>
+    </div></div>
+</section>
+
+<!-- ============================================================
+     DRIVER LIST — full roster with name / vehicle search
+     ============================================================ -->
+<section id="driverlist" class="">
+  <div class="section-header">
+    <span class="eyebrow" data-i18n="rosterEyebrow">Full Fleet Roster</span>
+    <h3 data-i18n="rosterTitle">Driver List</h3>
+    <p data-i18n="rosterSub">Browse every licensed Wayz driver. Search by name or by vehicle type to find exactly who you're looking for.</p>
+  </div>
+
+  <div class="search-card">
+    <div class="search-card-title">🔎 <span data-i18n="searchFleetTitle">Search the Fleet</span></div>
+    <div class="search-card-sub" data-i18n="searchFleetSub">Type a driver's name (e.g. "Kyaw") or a vehicle type (e.g. "Avatar EV") — results update as you type.</div>
+    <div class="roster-search-row">
+      <input type="text" id="rosterSearchInput" class="roster-search-input" data-i18n-placeholder="rosterSearchPlaceholder" placeholder="Search by driver name or vehicle type…" oninput="filterDriverList()" autocomplete="off">
+      <select id="rosterVehicleFilter" class="roster-vehicle-filter" onchange="filterDriverList()"><option value="">All vehicle types</option><option value="Avatar EV">Avatar EV</option><option value="Honda Fit">Honda Fit</option><option value="OE Way">OE Way</option><option value="Suzuki Swift">Suzuki Swift</option><option value="Toyota Camry">Toyota Camry</option><option value="Toyota Corolla">Toyota Corolla</option><option value="Toyota Hiace">Toyota Hiace</option></select>
+    </div>
+    <div class="search-hint" id="rosterCount">Showing all 45 drivers.</div>
+  </div>
+
+  <div class="drivers-grid" id="rosterContainer">
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES — CITY TOUR ONLY
+     ============================================================ -->
+<section id="services" class="">
+  <div class="section-header">
+    <span class="eyebrow" data-i18n="servicesEyebrow">Our Service</span>
+    <h3 data-i18n="servicesTitle">City Tour — Naypyitaw, Myanmar</h3>
+    <p data-i18n="servicesSub">One focused service, done properly: guided rides through the capital's landmarks with drivers who know every route.</p>
+  </div>
+
+  <div class="city-tour-card">
+    <div class="city-tour-media">🗺️</div>
+    <div class="city-tour-info">
+      <span class="eyebrow" data-i18n="featuredRoute">Featured Route</span>
+      <h4 data-i18n="cityTourTitle">Guided City Tour of Naypyitaw</h4>
+      <p data-i18n="cityTourSub">Ride from Wayz Campus Hub out to the Uppatasanti Pagoda and other landmarks with a knowledgeable local driver. Fixed base, fixed route, transparent fare — every time.</p>
+      <div class="city-tour-actions">
+        <a class="btn-outline-light" href="https://www.google.com/maps/search/Uppatasanti+Pagoda+Naypyidaw+Myanmar" target="_blank" rel="noopener" data-i18n="openInMaps">Open in Maps ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+     ============================================================ -->
+<section id="about" class="">
+  <div class="about-container">
+    <div class="about-content">
+      <span class="eyebrow" data-i18n="aboutEyebrow">About Wayz Transportation</span>
+      <h4 data-i18n="aboutTitle">A driver network built on accountability</h4>
+      <p data-i18n="aboutP1">Wayz Transportation connects riders across Naypyitaw with a fixed roster of licensed drivers — each tied to a real base location, a real vehicle, and a real set of routes they've committed to serving.</p>
+      <p data-i18n="aboutP2">There's no app to install and no account to create. You search a route, see who covers it, and call them directly to confirm your ride.</p>
+      <div class="about-highlights">
+        <div class="highlight"><div class="highlight-icon">✓</div><div><h5 data-i18n="hl1Title">Verified Base Locations</h5><p data-i18n="hl1Sub">Every driver operates from one of 9 fixed hubs across the city.</p></div></div>
+        <div class="highlight"><div class="highlight-icon">✓</div><div><h5 data-i18n="hl2Title">24/7 Dispatch</h5><p data-i18n="hl2Sub">Call the main line any time and we'll route you to a driver.</p></div></div>
+        <div class="highlight"><div class="highlight-icon">✓</div><div><h5 data-i18n="hl3Title">Route Transparency</h5><p data-i18n="hl3Sub">You only see drivers who genuinely serve your destination.</p></div></div>
+        <div class="highlight"><div class="highlight-icon">✓</div><div><h5 data-i18n="hl4Title">Direct Contact</h5><p data-i18n="hl4Sub">Every driver's phone number is right there on their card.</p></div></div>
+      </div>
+    </div>
+    <div class="about-image">
+      🚕
+      <div class="about-stats">
+        <div><div class="val">9</div><div class="lbl">Hubs</div></div>
+        <div><div class="val">17</div><div class="lbl">Drivers</div></div>
+        <div><div class="val">24</div><div class="lbl">Locations</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT
+     ============================================================ -->
+<section id="contact" class="">
+  <div class="contact-container">
+    <div class="contact-info">
+      <h4 data-i18n="contactTitle">Get In Touch</h4>
+
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div><h5 data-i18n="callUs">Call Us</h5><p data-i18n="callUsSub">+95 966 450 054 — Available 24/7</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div><h5 data-i18n="emailUs">Email Us</h5><p>info@wayz-transport.com</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div><h5 data-i18n="headOffice">Head Office</h5><p data-i18n="headOfficeSub">Wayz Campus Hub, Naypyitaw, Myanmar</p></div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">⏰</div>
+        <div><h5 data-i18n="hours">Hours</h5><p data-i18n="hoursSub">24 Hours / 7 Days — Always Open</p></div>
+      </div>
+
+      <div class="contact-quick-actions">
+        <a class="btn-gold" href="tel:+95966450054" data-i18n="callNow">📞 Call Now</a>
+        <a class="btn-outline-light" href="mailto:info@wayz-transport.com?subject=Ride%20Inquiry&amp;body=Hi%20Wayz%20Transportation%20team," data-i18n="emailNow">✉️ Email Now</a>
+      </div>
+    </div>
+
+    <div>
+      <form class="contact-form" onsubmit="sendMessage(event)">
+        <input type="text" data-i18n-placeholder="yourName" placeholder="Your Name" required="">
+        <input type="email" data-i18n-placeholder="yourEmail" placeholder="Your Email" required="">
+        <input type="text" data-i18n-placeholder="subject" placeholder="Subject" required="">
+        <textarea data-i18n-placeholder="yourMessage" placeholder="Your Message" required=""></textarea>
+        <button type="submit" data-i18n="sendMessage">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="logo" style="cursor:default;">
+      <span class="logo-icon">🚕</span>
+      <span class="logo-text"><h1 style="color:#fff;">Wayz</h1><p data-i18n="brandSub">Driver Finder</p></span>
+    </div>
+    <div class="footer-links">
+      <a onclick="navigateTo(&#39;home&#39;)" data-i18n="navHome">Home</a>
+      <a onclick="navigateTo(&#39;driverlist&#39;)" data-i18n="navDriverList">Driver List</a>
+      <a onclick="navigateTo(&#39;services&#39;)" data-i18n="navServices">Services</a>
+      <a onclick="navigateTo(&#39;about&#39;)" data-i18n="navAbout">About</a>
+      <a onclick="navigateTo(&#39;contact&#39;)" data-i18n="navContact">Contact</a>
+      <a href="tel:+95966450054" data-i18n="callNow">📞 Call Now</a>
+    </div>
+  </div>
+  <div class="footer-bottom" data-i18n-html="footerBottom">© 2026 Wayz Transportation, Naypyitaw. All rights reserved.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================================================================
+   DATA — LOCATIONS (9 driver hubs + 10 landmarks, corrected coordinates)
+   ================================================================ */
+const LOCATIONS = [
+  { id:"ocean", name:"Ocean Super Center Hub (Ottarathiri)", lat:19.817165195371956, lng:96.15440628725972, base:true },
+  { id:"train-station", name:"Naypyidaw Central Railway Station", lat:19.85, lng:96.1961, base:true },
+  { id:"museum", name:"National Museum & Gems Commercial Area", lat:19.734, lng:96.1119, base:true },
+  { id:"airport", name:"Naypyidaw International Airport (NYT)", lat:19.6205, lng:96.1988, base:true },
+  { id:"thapyaykone", name:"Thabyegone Market Hub (Zabuthiri)", lat:19.7423, lng:96.1158, base:true },
+  { id:"university", name:"NSPU – Naypyitaw State Polytechnic University", lat:19.848515, lng:96.159470, base:true },
+  { id:"myoma", name:"Myoma Market", lat:19.739, lng:96.136, base:true },
+  { id:"junction", name:"Junction Supermarket", lat:19.7562, lng:96.0827, base:true },
+  { id:"hospital", name:"Naypyitaw General Hospital", lat:19.7126, lng:96.1017, base:true },
+  { id:"yau", name:"Yezin Agricultural University (YAU)", lat:19.8333, lng:96.2667, base:false },
+  { id:"forestry-uni", name:"University of Forestry & Environmental Science", lat:19.8375, lng:96.2642, base:false },
+  { id:"hypermarket", name:"Capital Hypermarket Naypyidaw", lat:19.7314, lng:96.0955, base:false },
+  { id:"pyinmana-market", name:"Pyinmana Central Market Zone", lat:19.7337, lng:96.2057, base:false },
+  { id:"parliament", name:"Parliament Complex (Hluttaw Building)", lat:19.761, lng:96.0792, base:false },
+  { id:"palace", name:"Presidential Palace Zone", lat:19.771, lng:96.103, base:false },
+  { id:"transport-ministry", name:"Ministry of Transport & Communications", lat:19.7891, lng:96.134, base:false },
+  { id:"education-ministry", name:"Ministry of Education (Office No. 13)", lat:19.7876, lng:96.1368, base:false },
+  { id:"foreign-ministry", name:"Ministry of Foreign Affairs", lat:19.8164, lng:96.1432, base:false },
+  { id:"pagoda", name:"Uppatasanti Pagoda", lat:19.7711, lng:96.183, base:false }
+];
+const locById = Object.fromEntries(LOCATIONS.map(l => [l.id, l]));
+
+/* ================================================================
+   DATA — DRIVERS (36 drivers, 4 per hub, 6 vehicle types)
+   ================================================================ */
+const DRIVERS = [
+  { id:1, name:"Kaung Htet", base:"ocean", vehicle:"Toyota Corolla", rating:4.7, reviews:181, avatar:"👨‍💼", phone:"+95 966 555 001", experience:"8 years", routes:["airport","forestry-uni","hospital","pyinmana-market"] },
+  { id:2, name:"Ohnmar", base:"ocean", vehicle:"Suzuki Swift", rating:4.9, reviews:187, avatar:"👩‍💼", phone:"+95 966 555 002", experience:"7 years", routes:["junction","train-station","foreign-ministry","yau","palace","hospital"] },
+  { id:3, name:"Min Min", base:"ocean", vehicle:"Avatar EV", rating:4.7, reviews:104, avatar:"👨‍💼", phone:"+95 966 555 003", experience:"6 years", routes:["transport-ministry","yau","train-station","airport","palace","pyinmana-market"] },
+  { id:4, name:"Thida Win", base:"ocean", vehicle:"Toyota Hiace", rating:4.8, reviews:157, avatar:"👩‍💼", phone:"+95 966 555 004", experience:"14 years", routes:["university","education-ministry","junction","forestry-uni","transport-ministry","foreign-ministry"] },
+  { id:5, name:"Hein Zaw", base:"train-station", vehicle:"Honda Fit", rating:5.0, reviews:154, avatar:"👨‍💼", phone:"+95 966 555 005", experience:"11 years", routes:["foreign-ministry","forestry-uni","palace","pyinmana-market","education-ministry","transport-ministry"] },
+  { id:6, name:"Moe Moe", base:"train-station", vehicle:"Toyota Camry", rating:4.6, reviews:219, avatar:"👩‍💼", phone:"+95 966 555 006", experience:"12 years", routes:["museum","thapyaykone","education-ministry","foreign-ministry"] },
+  { id:7, name:"Thura Aung", base:"train-station", vehicle:"Toyota Corolla", rating:4.9, reviews:110, avatar:"👨‍💼", phone:"+95 966 555 007", experience:"4 years", routes:["ocean","thapyaykone","myoma","palace","parliament"] },
+  { id:8, name:"Su Su", base:"train-station", vehicle:"Suzuki Swift", rating:4.9, reviews:205, avatar:"👩‍💼", phone:"+95 966 555 008", experience:"4 years", routes:["pyinmana-market","education-ministry","university","museum","junction"] },
+  { id:9, name:"Hein Min", base:"museum", vehicle:"Avatar EV", rating:4.5, reviews:150, avatar:"👨‍💼", phone:"+95 966 555 009", experience:"7 years", routes:["myoma","pagoda","train-station","airport","parliament"] },
+  { id:10, name:"Cho Cho", base:"museum", vehicle:"Toyota Hiace", rating:4.9, reviews:103, avatar:"👩‍💼", phone:"+95 966 555 010", experience:"13 years", routes:["palace","ocean","university","airport"] },
+  { id:11, name:"Zaw Zaw", base:"museum", vehicle:"Honda Fit", rating:4.7, reviews:115, avatar:"👨‍💼", phone:"+95 966 555 011", experience:"3 years", routes:["pyinmana-market","university","myoma","train-station","foreign-ministry"] },
+  { id:12, name:"Khin Khin", base:"museum", vehicle:"Toyota Camry", rating:4.6, reviews:206, avatar:"👩‍💼", phone:"+95 966 555 012", experience:"7 years", routes:["train-station","hospital","airport","parliament"] },
+  { id:13, name:"Yan Naing", base:"airport", vehicle:"Toyota Corolla", rating:5.0, reviews:110, avatar:"👨‍💼", phone:"+95 966 555 013", experience:"5 years", routes:["transport-ministry","yau","education-ministry","foreign-ministry","university","myoma"] },
+  { id:14, name:"Chaw Su", base:"airport", vehicle:"Suzuki Swift", rating:4.9, reviews:151, avatar:"👩‍💼", phone:"+95 966 555 014", experience:"7 years", routes:["thapyaykone","palace","hypermarket","museum"] },
+  { id:15, name:"Swan Mg", base:"airport", vehicle:"Avatar EV", rating:4.9, reviews:184, avatar:"👨‍💼", phone:"+95 966 555 015", experience:"7 years", routes:["junction","thapyaykone","pagoda","foreign-ministry","palace"] },
+  { id:16, name:"Ei Thu", base:"airport", vehicle:"Toyota Hiace", rating:4.6, reviews:143, avatar:"👩‍💼", phone:"+95 966 555 016", experience:"14 years", routes:["thapyaykone","transport-ministry","forestry-uni","myoma","pagoda","museum"] },
+  { id:17, name:"Nay Lin", base:"thapyaykone", vehicle:"Honda Fit", rating:4.9, reviews:92, avatar:"👨‍💼", phone:"+95 966 555 017", experience:"4 years", routes:["education-ministry","airport","foreign-ministry","transport-ministry","hospital","parliament"] },
+  { id:18, name:"Aye Aye", base:"thapyaykone", vehicle:"Toyota Camry", rating:4.6, reviews:194, avatar:"👩‍💼", phone:"+95 966 555 018", experience:"12 years", routes:["pagoda","airport","hypermarket","forestry-uni","train-station"] },
+  { id:19, name:"Pyae Sone", base:"thapyaykone", vehicle:"Toyota Corolla", rating:4.9, reviews:210, avatar:"👨‍💼", phone:"+95 966 555 019", experience:"6 years", routes:["foreign-ministry","yau","train-station","myoma","forestry-uni","hospital"] },
+  { id:20, name:"Bhone Myint", base:"thapyaykone", vehicle:"Suzuki Swift", rating:5.0, reviews:174, avatar:"👩‍💼", phone:"+95 966 555 020", experience:"3 years", routes:["museum","hypermarket","pyinmana-market","parliament","hospital"] },
+  { id:21, name:"Mg Mg", base:"university", vehicle:"Avatar EV", rating:4.5, reviews:201, avatar:"👨‍💼", phone:"+95 966 555 021", experience:"3 years", routes:["ocean","transport-ministry","yau","parliament","airport","museum"] },
+  { id:22, name:"Kyi Kyi", base:"university", vehicle:"Toyota Hiace", rating:4.6, reviews:197, avatar:"👩‍💼", phone:"+95 966 555 022", experience:"13 years", routes:["pagoda","hypermarket","museum","train-station","hospital","palace"] },
+  { id:23, name:"Htet Aung", base:"university", vehicle:"Honda Fit", rating:4.6, reviews:111, avatar:"👨‍💼", phone:"+95 966 555 023", experience:"7 years", routes:["pyinmana-market","myoma","hospital","yau","train-station"] },
+  { id:24, name:"Phyo May", base:"university", vehicle:"Toyota Camry", rating:4.7, reviews:139, avatar:"👩‍💼", phone:"+95 966 555 024", experience:"14 years", routes:["yau","palace","foreign-ministry","hospital"] },
+  { id:25, name:"Tun Tun", base:"myoma", vehicle:"Toyota Corolla", rating:4.7, reviews:208, avatar:"👨‍💼", phone:"+95 966 555 025", experience:"13 years", routes:["thapyaykone","train-station","ocean","education-ministry","pagoda","airport"] },
+  { id:26, name:"Yin Yin", base:"myoma", vehicle:"Suzuki Swift", rating:4.7, reviews:151, avatar:"👩‍💼", phone:"+95 966 555 026", experience:"7 years", routes:["hospital","pyinmana-market","ocean","palace","junction"] },
+  { id:27, name:"Zayar Win", base:"myoma", vehicle:"Avatar EV", rating:4.7, reviews:209, avatar:"👨‍💼", phone:"+95 966 555 027", experience:"9 years", routes:["thapyaykone","yau","pagoda","airport","university"] },
+  { id:28, name:"Nandar Hlaing", base:"myoma", vehicle:"Toyota Hiace", rating:4.6, reviews:201, avatar:"👩‍💼", phone:"+95 966 555 028", experience:"10 years", routes:["yau","train-station","pyinmana-market","forestry-uni"] },
+  { id:29, name:"Thiha Soe", base:"junction", vehicle:"Honda Fit", rating:4.9, reviews:136, avatar:"👨‍💼", phone:"+95 966 555 029", experience:"3 years", routes:["train-station","palace","museum","pyinmana-market","transport-ministry"] },
+  { id:30, name:"Thaw Thaw", base:"junction", vehicle:"Toyota Camry", rating:4.6, reviews:107, avatar:"👩‍💼", phone:"+95 966 555 030", experience:"13 years", routes:["myoma","yau","pyinmana-market","pagoda","thapyaykone"] },
+  { id:31, name:"Ko Ko", base:"junction", vehicle:"Toyota Corolla", rating:4.6, reviews:119, avatar:"👨‍💼", phone:"+95 966 555 031", experience:"5 years", routes:["yau","parliament","museum","education-ministry","hospital","university"] },
+  { id:32, name:"Wai Wai", base:"junction", vehicle:"Suzuki Swift", rating:4.8, reviews:120, avatar:"👩‍💼", phone:"+95 966 555 032", experience:"12 years", routes:["thapyaykone","museum","parliament","forestry-uni","foreign-ministry","airport"] },
+  { id:33, name:"Kyaw Kyaw", base:"hospital", vehicle:"Avatar EV", rating:4.6, reviews:135, avatar:"👨‍💼", phone:"+95 966 555 033", experience:"14 years", routes:["ocean","hypermarket","palace","parliament","transport-ministry"] },
+  { id:34, name:"Zin Zin", base:"hospital", vehicle:"Toyota Hiace", rating:4.5, reviews:173, avatar:"👩‍💼", phone:"+95 966 555 034", experience:"5 years", routes:["foreign-ministry","airport","museum","transport-ministry","junction"] },
+  { id:35, name:"Aung Aung", base:"hospital", vehicle:"Honda Fit", rating:4.8, reviews:151, avatar:"👨‍💼", phone:"+95 966 555 035", experience:"14 years", routes:["palace","foreign-ministry","forestry-uni","yau","museum"] },
+  { id:36, name:"Lae Lae", base:"hospital", vehicle:"Toyota Camry", rating:5.0, reviews:174, avatar:"👩‍💼", phone:"+95 966 555 036", experience:"8 years", routes:["ocean","education-ministry","pagoda","junction"] },
+  { id:37, name:"Zayar Htet", base:"ocean", vehicle:"OE Way", rating:4.8, reviews:137, avatar:"👨‍💼", phone:"+95 966 555 037", experience:"5 years", routes:["train-station","museum","airport","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:38, name:"Nilar Win", base:"train-station", vehicle:"OE Way", rating:4.8, reviews:138, avatar:"👩‍💼", phone:"+95 966 555 038", experience:"6 years", routes:["ocean","museum","airport","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:39, name:"Aung Kyaw", base:"museum", vehicle:"OE Way", rating:4.8, reviews:139, avatar:"👨‍💼", phone:"+95 966 555 039", experience:"7 years", routes:["ocean","train-station","airport","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:40, name:"Sandar Oo", base:"airport", vehicle:"OE Way", rating:4.8, reviews:140, avatar:"👩‍💼", phone:"+95 966 555 040", experience:"8 years", routes:["ocean","train-station","museum","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:41, name:"Thet Naing", base:"thapyaykone", vehicle:"OE Way", rating:4.8, reviews:141, avatar:"👨‍💼", phone:"+95 966 555 041", experience:"9 years", routes:["ocean","train-station","museum","airport","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:42, name:"Wut Yee", base:"university", vehicle:"OE Way", rating:4.8, reviews:142, avatar:"👩‍💼", phone:"+95 966 555 042", experience:"10 years", routes:["ocean","train-station","museum","airport","thapyaykone","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:43, name:"Kaung Sat", base:"myoma", vehicle:"OE Way", rating:4.8, reviews:143, avatar:"👨‍💼", phone:"+95 966 555 043", experience:"11 years", routes:["ocean","train-station","museum","airport","thapyaykone","university","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:44, name:"Ei Ei Phyo", base:"junction", vehicle:"OE Way", rating:4.8, reviews:144, avatar:"👩‍💼", phone:"+95 966 555 044", experience:"12 years", routes:["ocean","train-station","museum","airport","thapyaykone","university","myoma","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] },
+  { id:45, name:"Myo Min", base:"hospital", vehicle:"OE Way", rating:4.8, reviews:145, avatar:"👨‍💼", phone:"+95 966 555 045", experience:"13 years", routes:["ocean","train-station","museum","airport","thapyaykone","university","myoma","junction","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"] }
+];
+
+/* ================================================================
+   I18N — English / Burmese (Myanmar)
+   ================================================================ */
+let currentLang = 'en';
+
+const TRANSLATIONS = {
+  en: {
+    brandSub:"Driver Finder",
+    navHome:"Home", navMap:"Map", navDriverList:"Driver List", navServices:"Services", navAbout:"About", navContact:"Contact",
+    callNow:"📞 Call Now",
+    heroEyebrow:"Naypyitaw's Verified Driver Network",
+    heroTitleHtml:"Reliable Rides, <em>Every Route,</em><br>Every Corner of Naypyitaw",
+    heroSub:"Pick your route, see exactly which licensed driver covers it, and call them directly — no accounts, no waiting, no guesswork.",
+    heroBtnFind:"Find a Driver Now",
+    heroBtnDispatch:"📞 Speak to Dispatch",
+    trustHubs:"Pickup Hubs", trustDrivers:"Licensed Drivers", trustDispatch:"Dispatch Line", trustRating:"Avg. Fleet Rating",
+    whyEyebrow:"Why Riders Trust Us",
+    whyTitle:"Built for safety, transparency & speed",
+    whySub:"Every driver on Wayz is tied to a fixed base and a verified set of routes — so you always know who's coming, and exactly what it costs.",
+    why1Title:"Detailed Driver Profiles", why1Sub:"​View  completed trips, and vehicle details beforehand to choose the right person for your ride.",
+    why2Title:"Flexible Vehicle Choices", why2Sub:"Choose the right vehicle to match your trip, group size, and budget.",
+    why3Title:"Background Checked Drivers", why3Sub:"All drivers are verified and background-checked to ensure passenger safety.",
+    why4Title:"Direct Contact", why4Sub:"Every driver card shows a direct phone number — call and confirm your ride in seconds, no middlemen.",
+   
+    driversEyebrow:"Route-Matched Drivers",
+    driversTitle:"Find Your Driver",
+    driversSub:"Choose your pickup and destination — from a dropdown or straight off the map — and we'll match you with the nearest available drivers.",
+    planRouteTitle:"Plan Your Route",
+    planRouteSub:"Pickup and destination share the same list of locations. Choosing one removes it from the other list automatically.",
+    pickupLabel:"Pickup Location", pickupLbl:"Pickup", destLabel:"Destination", destLbl:"Destination",
+    useMyLocation:"📍 Use my location",
+    hubTag:"Hub",
+    selectPickup:"Select pickup location", selectPickupFirst:"Select pickup location first",
+    noRoutesYet:"No routes available from this hub yet", selectDestination:"Select destination",
+    findDriversBtn:"Find Drivers",
+    routeHintHtml:"Tip: try <b>NSPU – Naypyitaw State Polytechnic University → Uppatasanti Pagoda</b> to preview our City Tour route.",
+    routeMeter:"Route Meter", distanceLbl:"Distance", durationLbl:"Duration",
+    mapClickHint:"🖱️ Tap a pin on the map to set it as pickup or destination",
+    mapLoadingLbl:"Loading map…",
+    legendHub:"Hub", legendSpot:"Spot", legendPickup:"Pickup", legendDest:"Destination",
+    pickupSetToast:"Pickup set to", destSetToast:"Destination set to",
+    emptyChooseTitle:"Choose a pickup location and destination",
+    emptyChooseSub:"Available drivers depend on your route — pick both ends on the map or from the dropdowns above.",
+    noDriversTitle:"No drivers cover this exact route yet",
+    noDriversSubA:"No driver based at", noDriversSubB:"currently runs to", noDriversSubC:"Our dispatch team can still help you find a ride.",
+    noExactRouteNote:"No driver has this exact route on file — here are the drivers based nearest your pickup point. Call to confirm they can take you there.",
+    callDispatch:"Call Dispatch",
+    callBtnPrefix:"Call", callBtnSuffix:"Now",
+    rosterEyebrow:"Full Fleet Roster", rosterTitle:"Driver List",
+    rosterSub:"Browse every licensed Wayz driver. Search by name or by vehicle type to find exactly who you're looking for.",
+    searchFleetTitle:"Search the Fleet",
+    searchFleetSub:'Type a driver\'s name (e.g. "Kyaw") or a vehicle type (e.g. "Avatar EV") — results update as you type.',
+    rosterSearchPlaceholder:"Search by driver name or vehicle type…",
+    allVehicleTypes:"All vehicle types",
+    showingAll:"Showing all", showing:"Showing", of:"of", driversWord:"drivers",
+    servicesEyebrow:"Our Service", servicesTitle:"City Tour — Naypyitaw, Myanmar",
+    servicesSub:"One focused service, done properly: guided rides through the capital's landmarks with drivers who know every route.",
+    featuredRoute:"Featured Route", cityTourTitle:"Guided City Tour of Naypyitaw",
+    cityTourSub:"Ride from Wayz Campus Hub out to the Uppatasanti Pagoda and other landmarks with a knowledgeable local driver. Fixed base, fixed route, transparent fare — every time.",
+    openInMaps:"Open in Maps ↗",
+    aboutEyebrow:"About Wayz Transportation", aboutTitle:"A driver network built on accountability",
+    aboutP1:"Wayz Transportation connects riders across Naypyitaw with a fixed roster of licensed drivers — each tied to a real base location, a real vehicle, and a real set of routes they've committed to serving.",
+    aboutP2:"There's no app to install and no account to create. You search a route, see who covers it, and call them directly to confirm your ride.",
+    hl1Title:"Verified Base Locations", hl1Sub:"Every driver operates from one of 9 fixed hubs across the city.",
+    hl2Title:"24/7 Dispatch", hl2Sub:"Call the main line any time and we'll route you to a driver.",
+    hl3Title:"Route Transparency", hl3Sub:"You only see drivers who genuinely serve your destination.",
+    hl4Title:"Direct Contact", hl4Sub:"Every driver's phone number is right there on their card.",
+    contactTitle:"Get In Touch", callUs:"Call Us", callUsSub:"+95 966 450 054 — Available 24/7",
+    emailUs:"Email Us", headOffice:"Head Office", headOfficeSub:"Wayz Campus Hub, Naypyitaw, Myanmar",
+    hours:"Hours", hoursSub:"24 Hours / 7 Days — Always Open",
+    emailNow:"✉️ Email Now",
+    yourName:"Your Name", yourEmail:"Your Email", subject:"Subject", yourMessage:"Your Message", sendMessage:"Send Message",
+    footerBottomHtml:"&copy; 2026 Wayz Transportation, Naypyitaw. All rights reserved.",
+    geoUnsupported:"Geolocation is not supported on this device.",
+    findingNearestHub:"Finding your nearest pickup hub…",
+    nearestHubToast:"Nearest hub:",
+    geoDenied:"Could not access your location. Please select a hub manually.",
+    selectBoth:"Please select both a pickup hub and a destination.",
+    messageSent:"Message sent! Our team will get back to you shortly."
+  },
+  my: {
+    brandSub:"ယာဉ်မောင်းရှာဖွေစနစ်",
+    navHome:"ပင်မစာမျက်နှာ", navMap:"မြေပုံ", navDriverList:"ယာဉ်မောင်းစာရင်း", navServices:"ဝန်ဆောင်မှုများ", navAbout:"အကြောင်း", navContact:"ဆက်သွယ်ရန်",
+    callNow:"📞 ယခုခေါ်ဆိုပါ",
+    heroEyebrow:"နေပြည်တော်၏ စိစစ်ပြီး ယာဉ်မောင်းကွန်ရက်",
+    heroTitleHtml:"စိတ်ချရတဲ့ ခရီးစဉ် <em>လမ်းကြောင်းတိုင်းနဲ့</em><br>နေပြည်တော်၏ နေရာတိုင်းတွင်",
+    heroSub:"သင့်လမ်းကြောင်းကို ရွေးချယ်ပြီး လိုင်စင်ရ ယာဉ်မောင်းကို တိုက်ရိုက်ခေါ်ဆိုနိုင်ပါသည် — အကောင့်မလို၊ စောင့်ရန်မလို။",
+    heroBtnFind:"ယခု ယာဉ်မောင်းရှာပါ",
+    heroBtnDispatch:"📞 စုံစမ်းရန်",
+    trustHubs:"ကားဂိတ်များ", trustDrivers:"လိုင်စင်ရ ယာဉ်မောင်းများ", trustDispatch:"ဆက်သွယ်ရေးလိုင်း", trustRating:"ပျမ်းမျှအဆင့်သတ်မှတ်ချက်",
+    whyEyebrow:"အဘယ်ကြောင့် ယုံကြည်ကြသနည်း",
+    whyTitle:"လုံခြုံမှု၊ ပွင့်လင်းမြင်သာမှုနှင့် အမြန်နှုန်းအတွက် တည်ဆောက်ထားသည်",
+    whySub:"Wayz ပေါ်ရှိ ယာဉ်မောင်းတိုင်းသည် သတ်မှတ်ကားဂိတ်နှင့် စိစစ်ပြီးလမ်းကြောင်းများနှင့် ချိတ်ဆက်ထားသည်။",
+    why1Title:"ယာဉ်မောင်းအချက်အလက် ကြည့်ရှုနိုင်မှု", why1Sub:"​ယာဉ်မောင်းတစ်ဦးချင်းစီ၏ မောင်းနှင်ခဲ့သည့် ခရီးစဉ်အရေအတွက်နှင့် ကားအမျိုးအစားတို့ကို ကြိုတင်ကြည့်ရှုပြီး မိမိစိတ်ကြိုက် ယာဉ်မောင်းကို စိစစ်ရွေးချယ်နိုင်ပါသည်။",
+    why2Title:"ယာဥ်အမျိုးအစားအား စိတ်ကြိုက်ရွေးချယ်နိုင်မှု", why2Sub:"မိမိသွားမည့် ခရီးစဉ်အခြေအနေ၊ လူဦးရေနှင့် ဘတ်ဂျက်အပေါ် မူတည်ပြီး သင့်တော်မည့် ကားအမျိုးအစားကို စိတ်ကြိုက်ရွေးချယ် အသုံးပြုနိုင်ပါသည်။",
+    why3Title:"နောက်ခံသမိုင်း စိစစ်ပြီး ယာဥ်မောင်းများ", why3Sub:"ခရီးသည်များ ဘေးကင်းစေရန်အတွက် ယာဉ်မောင်းတိုင်း၏ ကိုယ်ရေးအချက်အလက်နှင့် ပြစ်မှုကင်းရှင်းကြောင်းကို စနစ်တကျ စိစစ်ထားပါသည်။",
+    why4Title:"တိုက်ရိုက်ဆက်သွယ်မှု", why4Sub:"ယာဉ်မောင်းကတ်တိုင်းတွင် ဖုန်းနံပါတ်ပါဝင်ပြီး ချက်ချင်းခေါ်ဆိုနိုင်သည်။",
+   
+    driversEyebrow:"လမ်းကြောင်းနှင့် ကိုက်ညီသော ယာဉ်မောင်းများ",
+    driversTitle:"သင့်ယာဉ်မောင်းကို ရှာပါ",
+    driversSub:"ကားဂိတ်နှင့် ရောက်ရှိရမည့်နေရာကို ရွေးချယ်ပါ — dropdown မှသော်လည်းကောင်း၊ မြေပုံပေါ်မှ တိုက်ရိုက်သော်လည်းကောင်း — အနီးဆုံး ရရှိနိုင်သော ယာဉ်မောင်းများနှင့် ကိုက်ညီပေးပါမည်။",
+    planRouteTitle:"သင့်လမ်းကြောင်းကို စီစဉ်ပါ",
+    planRouteSub:"ကားဂိတ်နှင့် ရောက်ရှိရမည့်နေရာသည် တည်နေရာစာရင်းတစ်ခုတည်းကို မျှဝေအသုံးပြုသည်။ တစ်ခုကို ရွေးလိုက်ပါက အခြားတစ်ခုမှ အလိုအလျောက် ပယ်ဖျက်သွားမည်။",
+    pickupLabel:"ကားဂိတ်", pickupLbl:"ကားဂိတ်", destLabel:"ရောက်ရှိရမည့်နေရာ", destLbl:"ရောက်ရှိရမည့်နေရာ",
+    useMyLocation:"📍 ကျွန်ုပ်၏တည်နေရာကို သုံးပါ",
+    hubTag:"ကားဂိတ်",
+    selectPickup:"ကားဂိတ်ရွေးချယ်ပါ", selectPickupFirst:"ကားဂိတ်ကို အရင်ရွေးချယ်ပါ",
+    noRoutesYet:"ဤကားဂိတ်မှ ခရီးစဉ်များ မရှိသေးပါ", selectDestination:"ရောက်ရှိရမည့်နေရာ ရွေးချယ်ပါ",
+    findDriversBtn:"ယာဉ်မောင်းများရှာပါ",
+    routeHintHtml:"အကြံပြုချက်– <b>NSPU – Naypyitaw State Polytechnic University → ဥပ္ပါတသန္တိစေတီ</b> လမ်းကြောင်းကို စမ်းကြည့်ပါ။",
+    routeMeter:"ခရီးစဉ်မီတာ", distanceLbl:"အကွာအဝေး", durationLbl:"ကြာချိန်",
+    mapClickHint:"🖱️ ကားဂိတ် သို့မဟုတ် ရောက်ရှိရမည့်နေရာအဖြစ် သတ်မှတ်ရန် မြေပုံပေါ်ရှိ အမှတ်တစ်ခုကို တို့ပါ",
+    mapLoadingLbl:"မြေပုံကို ဖွင့်နေသည်…",
+    legendHub:"ကားဂိတ်", legendSpot:"နေရာ", legendPickup:"ကားဂိတ်", legendDest:"ရောက်ရှိရမည့်နေရာ",
+    pickupSetToast:"ကားဂိတ် သတ်မှတ်ပြီး–", destSetToast:"ရောက်ရှိရမည့်နေရာ သတ်မှတ်ပြီး–",
+    emptyChooseTitle:"ကားဂိတ်နှင့် ရောက်ရှိရမည့်နေရာကို ရွေးချယ်ပါ",
+    emptyChooseSub:"ရရှိနိုင်သော ယာဉ်မောင်းများသည် သင့်လမ်းကြောင်းအပေါ် မူတည်သည် — မြေပုံပေါ်မှ (သို့) dropdown များမှ နှစ်ဖက်စလုံးကို ရွေးချယ်ပါ။",
+    noDriversTitle:"ဤလမ်းကြောင်းအတွက် ယာဉ်မောင်း မရှိသေးပါ",
+    noDriversSubA:"တွင်အခြေစိုက်သော ယာဉ်မောင်းများ", noDriversSubB:"သို့ ယခုအခါ ပြေးဆွဲခြင်း မရှိပါ", noDriversSubC:"ကျွန်ုပ်တို့၏ ဌာနချုပ်အဖွဲ့က အကူအညီပေးနိုင်ပါသည်။",
+    noExactRouteNote:"ဤလမ်းကြောင်းအတိအကျအတွက် ယာဉ်မောင်း မရှိသေးပါ — သင့်ကားဂိတ်နှင့် အနီးဆုံး အခြေစိုက်ယာဉ်မောင်းများကို ဖော်ပြထားပါသည်။ သွားနိုင်ကြောင်း အတည်ပြုရန် ဖုန်းခေါ်ပါ။",
+    callDispatch:"ဌာနချုပ်ကို ခေါ်ဆိုပါ",
+    callBtnPrefix:"", callBtnSuffix:"ကို ခေါ်ဆိုပါ",
+    rosterEyebrow:"ယာဉ်မောင်းအားလုံး စာရင်း", rosterTitle:"ယာဉ်မောင်းစာရင်း",
+    rosterSub:"လိုင်စင်ရ Wayz ယာဉ်မောင်းအားလုံးကို ကြည့်ရှုပါ။ အမည် သို့မဟုတ် ယာဉ်အမျိုးအစားဖြင့် ရှာဖွေနိုင်သည်။",
+    searchFleetTitle:"ယာဉ်များကို ရှာပါ",
+    searchFleetSub:"ယာဉ်မောင်းအမည် သို့မဟုတ် ယာဉ်အမျိုးအစားဖြင့် ရိုက်ထည့်ပါ — ရလဒ်များ အလိုအလျောက် ပြသမည်။",
+    rosterSearchPlaceholder:"ယာဉ်မောင်းအမည် သို့မဟုတ် ယာဉ်အမျိုးအစားဖြင့် ရှာပါ…",
+    allVehicleTypes:"ယာဉ်အမျိုးအစားအားလုံး",
+    showingAll:"အားလုံးပြသနေသည်", showing:"ပြသနေသည်", of:"/", driversWord:"ယာဉ်မောင်းများ",
+    servicesEyebrow:"ကျွန်ုပ်တို့၏ဝန်ဆောင်မှု", servicesTitle:"မြို့တွင်းလှည့်လည်ခြင်း — နေပြည်တော်၊ မြန်မာ",
+    servicesSub:"လမ်းကြောင်းတိုင်းကို ကျွမ်းကျင်သော ယာဉ်မောင်းများနှင့်အတူ မြို့တော်၏ထင်ရှားသည့်နေရာများကို ပို့ဆောင်ပေးပါမည်။",
+    featuredRoute:"ထူးခြားသောလမ်းကြောင်း", cityTourTitle:"နေပြည်တော် မြို့တွင်းလှည့်လည်ခြင်း",
+    cityTourSub:"Wayz Campus Hub မှ ဥပ္ပါတသန္တိစေတီနှင့် အခြားထင်ရှားသည့်နေရာများသို့ ကျွမ်းကျင်သော ဒေသခံယာဉ်မောင်းနှင့်အတူ စီးနင်းပါ။",
+    openInMaps:"မြေပုံတွင် ဖွင့်ပါ ↗",
+    aboutEyebrow:"Wayz Transportation အကြောင်း", aboutTitle:"တာဝန်ခံမှုအပေါ် တည်ဆောက်ထားသော ယာဉ်မောင်းကွန်ရက်",
+    aboutP1:"Wayz Transportation သည် နေပြည်တော်တစ်ဝှမ်းရှိ စီးနင်းသူများကို လိုင်စင်ရ ယာဉ်မောင်းစာရင်းသေချာသေချာနှင့် ချိတ်ဆက်ပေးပါသည်။",
+    aboutP2:"install လုပ်ရန် app မလိုအပ်ပါ၊ အကောင့်လည်းမလိုအပ်ပါ။ လမ်းကြောင်းရှာပြီး တိုက်ရိုက်ခေါ်ဆိုနိုင်ပါသည်။",
+    hl1Title:"စိစစ်ထားသော ကားဂိတ်များ", hl1Sub:"ယာဉ်မောင်းတိုင်းသည် မြို့တစ်ဝှမ်းရှိ ကားဂိတ် ၉ ခုအနက် တစ်ခုမှ လုပ်ဆောင်သည်။",
+    hl2Title:"၂၄/၇ ဌာနချုပ်ဝန်ဆောင်မှု", hl2Sub:"အချိန်မရွေး ဖုန်းခေါ်ဆိုနိုင်ပြီး ယာဉ်မောင်းထံ ချိတ်ဆက်ပေးပါမည်။",
+    hl3Title:"လမ်းကြောင်း ပွင့်လင်းမြင်သာမှု", hl3Sub:"သင့်ရောက်ရှိရမည့်နေရာကို အမှန်တကယ်ပြေးဆွဲသော ယာဉ်မောင်းများကိုသာ တွေ့မြင်ရမည်။",
+    hl4Title:"တိုက်ရိုက်ဆက်သွယ်မှု", hl4Sub:"ယာဉ်မောင်းတိုင်း၏ ဖုန်းနံပါတ်ကို ကတ်ပေါ်တွင် တွေ့နိုင်သည်။",
+    contactTitle:"ဆက်သွယ်ရန်", callUs:"ဖုန်းခေါ်ပါ", callUsSub:"+95 966 450 054 — ၂၄/၇ ရရှိနိုင်",
+    emailUs:"အီးမေးလ်ပို့ပါ", headOffice:"ဌာနချုပ်ရုံး", headOfficeSub:"Wayz Campus Hub, နေပြည်တော်၊ မြန်မာ",
+    hours:"ဖွင့်ချိန်", hoursSub:"၂၄ နာရီ / ၇ ရက် — အမြဲဖွင့်",
+    emailNow:"✉️ ယခုအီးမေးလ်ပို့ပါ",
+    yourName:"သင့်အမည်", yourEmail:"သင့်အီးမေးလ်", subject:"ခေါင်းစဉ်", yourMessage:"သင့်စာသား", sendMessage:"စာပို့ပါ",
+    footerBottomHtml:"&copy; 2026 Wayz Transportation, နေပြည်တော်။ မူပိုင်ခွင့်အားလုံး ရယူထားသည်။",
+    geoUnsupported:"ဤစက်ပစ္စည်းတွင် တည်နေရာဖော်ထုတ်ခြင်း ပံ့ပိုးမပေးပါ။",
+    findingNearestHub:"အနီးဆုံးကားဂိတ်ကို ရှာနေသည်…",
+    nearestHubToast:"အနီးဆုံးကားဂိတ်–",
+    geoDenied:"သင့်တည်နေရာကို ဝင်ရောက်ရယူ၍ မရပါ။ ကားဂိတ်ကို ကိုယ်တိုင်ရွေးချယ်ပါ။",
+    selectBoth:"ကျေးဇူးပြု၍ ကားဂိတ်နှင့် ရောက်ရှိရမည့်နေရာ နှစ်ခုစလုံးကို ရွေးချယ်ပါ။",
+    messageSent:"စာပို့ပြီးပါပြီ! ကျွန်ုပ်တို့အဖွဲ့မှ မကြာမီ ပြန်လည်ဆက်သွယ်ပါမည်။"
+  }
+};
+
+function t(key){
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+  return (key in dict) ? dict[key] : (TRANSLATIONS.en[key] || key);
+}
+
+function applyStaticTranslations(){
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = t(key);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const key = el.getAttribute('data-i18n-html');
+    const htmlKey = key + 'Html';
+    el.innerHTML = t(htmlKey);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.setAttribute('placeholder', t(key));
+  });
+}
+
+function setLanguage(lang){
+  currentLang = lang;
+  document.documentElement.setAttribute('lang', lang === 'my' ? 'my' : 'en');
+  document.body.classList.toggle('lang-my', lang === 'my');
+  document.getElementById('langBtnEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langBtnMy').classList.toggle('active', lang === 'my');
+
+  applyStaticTranslations();
+
+  // Re-render every piece of dynamically-generated content in the new language
+  populatePickupSelect();
+  populateVehicleFilter();
+  renderRosterList();
+  filterDriverList();
+
+  const pickupId = document.getElementById('pickupSelect') ? document.getElementById('pickupSelect').value : '';
+  if(pickupId){ onPickupChange(); } else { clearResults(); }
+
+  if(window.storage){
+    try{ window.storage.set('wayz-lang', lang, false); }catch(e){ /* ignore */ }
+  }
+}
+
+/* ================================================================
+   BACKEND API (PHP + MySQL — no Node.js/Express)
+   Every call gracefully falls back to the local hard-coded data
+   above when the API is unreachable (e.g. viewing the file
+   directly, or the PHP/MySQL server isn't running).
+   ================================================================ */
+const API_BASE = 'api/';
+let apiAvailable = null; // null = unknown, true/false once tested
+
+async function apiGet(endpoint, params = {}){
+  const qs = new URLSearchParams(params).toString();
+  const url = API_BASE + endpoint + (qs ? ('?' + qs) : '');
+  const res = await fetch(url, { headers:{ 'Accept':'application/json' } });
+  if(!res.ok) throw new Error('API error ' + res.status);
+  const data = await res.json();
+  if(!data || data.success !== true) throw new Error('API returned failure');
+  return data;
+}
+
+async function apiPost(endpoint, body = {}){
+  const res = await fetch(API_BASE + endpoint, {
+    method:'POST',
+    headers:{ 'Content-Type':'application/json' },
+    body: JSON.stringify(body)
+  });
+  if(!res.ok) throw new Error('API error ' + res.status);
+  const data = await res.json();
+  if(!data || data.success !== true) throw new Error('API returned failure');
+  return data;
+}
+
+/* Merge extra fields returned by the PHP API (e.g. live ratings) into the
+   local DRIVERS array, without discarding any local-only fields. Note:
+   this build no longer tracks or displays live driver positions — the
+   map only shows the fixed set of pickup/destination locations. */
+function mergeDriverExtras(list){
+  list.forEach(row => {
+    const d = DRIVERS.find(x => x.id === row.id);
+    if(!d) return;
+    if(typeof row.avgRating === 'number') d.liveAvg = row.avgRating;
+    if(typeof row.ratingCount === 'number') d.liveCount = row.ratingCount;
+  });
+}
+
+/* ================================================================
+   STATE
+   ================================================================ */
+let map, routeLayer, routeLine;
+let mapInitialized = false;
+
+/* ================================================================
+   NAVIGATION
+   ================================================================ */
+function navigateTo(sectionId){
+  document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+  document.getElementById(sectionId).classList.add('active');
+
+  document.querySelectorAll('[data-section]').forEach(a => {
+    a.classList.toggle('active', a.dataset.section === sectionId);
+  });
+
+  const mobileNav = document.getElementById('mobileNav');
+  mobileNav.classList.remove('open');
+
+  if(sectionId === 'drivers' && !mapInitialized){
+    setTimeout(initMap, 50);
+  } else if(sectionId === 'drivers' && map){
+    setTimeout(() => map.invalidateSize(), 50);
+  }
+
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function toggleMobileNav(){
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+/* ================================================================
+   PICKUP / DESTINATION SELECTS
+   Pickup and destination now share the exact same list of 24 mapped
+   locations. Whichever location is chosen on one side is removed
+   from the other side's options, in both directions, so the same
+   place can never be selected as both pickup and destination.
+   ================================================================ */
+function locationOptionLabel(l){
+  return l.base ? `${l.name} — ${t('hubTag')}` : l.name;
+}
+
+function populatePickupSelect(){
+  refreshLocationSelects();
+}
+
+function refreshLocationSelects(){
+  const pickupSel = document.getElementById('pickupSelect');
+  const destSel = document.getElementById('destSelect');
+  if(!pickupSel || !destSel) return;
+
+  const pickupId = pickupSel.value;
+  const destId = destSel.value;
+
+  // Rebuild pickup options, excluding whatever is currently the destination
+  const pickupOptions = LOCATIONS.filter(l => l.id !== destId);
+  pickupSel.innerHTML = `<option value="">${t('selectPickup')}</option>` +
+    pickupOptions.map(l => `<option value="${l.id}">${locationOptionLabel(l)}</option>`).join('');
+  pickupSel.value = pickupOptions.some(l => l.id === pickupId) ? pickupId : '';
+
+  // Rebuild destination options, excluding whatever is currently the pickup
+  if(!pickupSel.value){
+    destSel.disabled = true;
+    destSel.innerHTML = `<option value="">${t('selectPickupFirst')}</option>`;
+    return;
+  }
+  destSel.disabled = false;
+  const destOptions = LOCATIONS.filter(l => l.id !== pickupSel.value);
+  destSel.innerHTML = `<option value="">${t('selectDestination')}</option>` +
+    destOptions.map(l => `<option value="${l.id}">${locationOptionLabel(l)}</option>`).join('');
+  destSel.value = destOptions.some(l => l.id === destId) ? destId : '';
+}
+
+function onPickupChange(){
+  refreshLocationSelects();
+  updateMapSelectionMarkers();
+  const pickupId = document.getElementById('pickupSelect').value;
+  const destId = document.getElementById('destSelect').value;
+  if(pickupId && destId){ runSearch(); } else { clearResults(); }
+}
+
+function onDestChange(){
+  refreshLocationSelects();
+  updateMapSelectionMarkers();
+  const pickupId = document.getElementById('pickupSelect').value;
+  const destId = document.getElementById('destSelect').value;
+  if(pickupId && destId){ runSearch(); } else { clearResults(); }
+}
+
+function clearResults(){
+  document.getElementById('routePanel').classList.remove('active');
+  document.getElementById('driversContainer').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-state-icon">🧭</div>
+      <h4>${t('emptyChooseTitle')}</h4>
+      <p>${t('emptyChooseSub')}</p>
+    </div>`;
+}
+
+/* ================================================================
+   GEOLOCATION → NEAREST HUB
+   ================================================================ */
+function haversineKm(lat1,lng1,lat2,lng2){
+  const R = 6371, toRad = d => d*Math.PI/180;
+  const dLat = toRad(lat2-lat1), dLng = toRad(lng2-lng1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+}
+
+function useMyLocation(){
+  if(!navigator.geolocation){
+    showToast(t('geoUnsupported'), 'error');
+    return;
+  }
+  showToast(t('findingNearestHub'));
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      const { latitude, longitude } = pos.coords;
+      let nearest = null, best = Infinity;
+      LOCATIONS.filter(l => l.base).forEach(l => {
+        const d = haversineKm(latitude, longitude, l.lat, l.lng);
+        if(d < best){ best = d; nearest = l; }
+      });
+      if(nearest){
+        document.getElementById('pickupSelect').value = nearest.id;
+        onPickupChange();
+        showToast(`${t('nearestHubToast')} ${nearest.name} (${best.toFixed(1)} km)`);
+      }
+    },
+    () => showToast(t('geoDenied'), 'error')
+  );
+}
+
+/* ================================================================
+   SEARCH / RENDER DRIVERS
+   Pickup/destination can now be ANY of the 24 mapped locations, not
+   just the 9 driver-base hubs. To find drivers we work out which
+   base hub is physically closest to the chosen pickup point, then
+   look for drivers at that hub who serve the destination. If none
+   run that exact route on file, we fall back to showing every
+   driver at the nearest hub so dispatch can still help.
+   ================================================================ */
+function nearestBaseHub(loc){
+  let best = null, bestDist = Infinity;
+  LOCATIONS.filter(l => l.base).forEach(l => {
+    const dist = (l.id === loc.id) ? 0 : haversineKm(loc.lat, loc.lng, l.lat, l.lng);
+    if(dist < bestDist){ bestDist = dist; best = l; }
+  });
+  return best;
+}
+
+function runSearch(){
+  const pickupId = document.getElementById('pickupSelect').value;
+  const destId = document.getElementById('destSelect').value;
+
+  if(!pickupId || !destId){
+    showToast(t('selectBoth'), 'error');
+    return;
+  }
+
+  const pickup = locById[pickupId], dest = locById[destId];
+  const hub = nearestBaseHub(pickup);
+
+  let matches = DRIVERS.filter(d => d.base === hub.id && d.routes.includes(destId));
+  let exact = true;
+  if(matches.length === 0){
+    matches = DRIVERS.filter(d => d.base === hub.id);
+    exact = false;
+  }
+
+  document.getElementById('routePanel').classList.add('active');
+  document.getElementById('meterRoute').innerHTML = `<b>${pickup.name}</b> → <b>${dest.name}</b>`;
+  document.getElementById('meterDistance').textContent = '--';
+  document.getElementById('meterDuration').textContent = '--';
+
+  renderDrivers(matches, pickup, dest, exact);
+
+  // The map container is inside .route-panel, which is hidden (display:none)
+  // until now. Leaflet needs a resize nudge once it actually becomes visible,
+  // otherwise it keeps thinking it's 0×0 and tiles never render correctly.
+  setTimeout(() => {
+    if(map) map.invalidateSize();
+    updateMapRoute(pickup, dest);
+  }, 60);
+}
+
+function renderDrivers(drivers, pickup, dest, exact){
+  const container = document.getElementById('driversContainer');
+
+  if(drivers.length === 0){
+    container.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-state-icon">🚕</div>
+        <h4>${t('noDriversTitle')}</h4>
+        <p>${t('noDriversSubA')} <strong>${pickup.name}</strong> ${t('noDriversSubB')} <strong>${dest.name}</strong>. ${t('noDriversSubC')}</p>
+        <a class="call-now-btn" style="display:inline-flex; max-width:260px;" href="tel:+95966450054">📞 ${t('callDispatch')}</a>
+      </div>`;
+    return;
+  }
+
+  const note = exact ? '' : `<div class="route-note">🚕 ${t('noExactRouteNote')}</div>`;
+  container.innerHTML = note + drivers.map(d => driverCardHTML(d)).join('');
+}
+
+function driverCardHTML(d, prefix=''){
+  return `
+    <div class="driver-card" id="driver-card-${prefix}${d.id}">
+      <div class="driver-top">
+        ${d.avatar}
+        <div class="driver-badge">🕓 ${d.experience}</div>
+      </div>
+      <div class="driver-body">
+        <div>
+          <div class="driver-name">${d.name}</div>
+          <div class="driver-base">${locById[d.base].name}</div>
+        </div>
+
+        <div class="driver-phone">📞 ${d.phone}</div>
+
+        <div class="driver-meta">
+          <span>🚗 <b>${d.vehicle}</b></span>
+          <span>🕓 <b>${d.experience}</b></span>
+        </div>
+
+        <a class="call-now-btn" href="tel:${d.phone.replace(/\\s+/g,'')}">📞 ${t('callBtnPrefix')} ${d.name.split(' ')[0]} ${t('callBtnSuffix')}</a>
+      </div>
+    </div>`;
+}
+
+/* ================================================================
+   MAP (Leaflet, styled with the CARTO Voyager basemap for a more
+   attractive, softly-colored look than plain OSM tiles). Every one
+   of the 24 pickup/destination locations is plotted as a clickable
+   pin — tapping a pin sets it as the pickup, then the destination,
+   right from the map. There are no live driver positions on this
+   map; it only ever shows the fixed set of locations plus the
+   chosen route.
+   ================================================================ */
+/* Builds a Grab-style teardrop pin as a Leaflet divIcon — no external
+   image assets required, everything is drawn with the CSS above. */
+function pinIcon(kind, withPulse){
+  const size = (kind === 'pickup' || kind === 'dest') ? [40,52] : [34,44];
+  return L.divIcon({
+    className: '',
+    html: `<div class="wayz-pin pin-${kind}"><div class="pin-body"></div><div class="pin-dot"></div>${withPulse ? '<div class="wayz-pin-pulse"></div>' : ''}</div>`,
+    iconSize: size,
+    iconAnchor: [size[0]/2, size[1]]
+  });
+}
+
+function initMap(){
+  if(mapInitialized) return;
+  const mapEl = document.getElementById('map');
+  if(!mapEl || typeof L === 'undefined') return;
+
+  map = L.map('map', { zoomControl:false }).setView([19.7450,96.1600], 11);
+  L.control.zoom({ position:'bottomright' }).addTo(map);
+
+  const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    subdomains:'abcd', maxZoom:20
+  }).addTo(map);
+
+  const loadingEl = document.getElementById('mapLoading');
+  const hideLoading = () => { if(loadingEl) loadingEl.style.opacity = '0'; setTimeout(() => { if(loadingEl) loadingEl.style.display='none'; }, 300); };
+  tiles.once('load', hideLoading);
+  setTimeout(hideLoading, 2500); // safety net if the 'load' event never fires
+
+  routeLayer = L.layerGroup().addTo(map);
+
+  LOCATIONS.forEach(l => {
+    const marker = L.marker([l.lat,l.lng], { icon: pinIcon(l.base ? 'hub' : 'spot') })
+      .bindTooltip(locationOptionLabel(l), { direction:'top', offset:[0,-38], className:'wayz-tooltip' })
+      .addTo(map);
+    marker.on('click', () => selectLocationFromMap(l.id));
+  });
+
+  mapInitialized = true;
+}
+
+/* Clicking a location pin fills pickup first, then destination.
+   Clicking the current pickup again clears the whole selection;
+   clicking a new pin once both are already set starts a fresh plan. */
+function selectLocationFromMap(locId){
+  const loc = locById[locId];
+  if(!loc) return;
+
+  const pickupSel = document.getElementById('pickupSelect');
+  const destSel = document.getElementById('destSelect');
+
+  if(!pickupSel.value){
+    pickupSel.value = locId;
+    onPickupChange();
+    showToast(`${t('pickupSetToast')} ${loc.name}`);
+    return;
+  }
+
+  if(pickupSel.value === locId){
+    pickupSel.value = '';
+    onPickupChange();
+    return;
+  }
+
+  if(!destSel.disabled && destSel.value !== locId){
+    destSel.value = locId;
+    onDestChange();
+    showToast(`${t('destSetToast')} ${loc.name}`);
+    return;
+  }
+
+  pickupSel.value = locId;
+  onPickupChange();
+  showToast(`${t('pickupSetToast')} ${loc.name}`);
+}
+
+/* Draws (or clears) the green pickup pin and red destination pin on
+   the map to reflect whatever is currently selected in the dropdowns,
+   even before a full route search has run. */
+function updateMapSelectionMarkers(){
+  if(!map || !routeLayer) return;
+  routeLayer.clearLayers();
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+
+  const pickupId = document.getElementById('pickupSelect').value;
+  const destId = document.getElementById('destSelect').value;
+
+  if(pickupId){
+    const p = locById[pickupId];
+    L.marker([p.lat,p.lng], { icon: pinIcon('pickup', true), zIndexOffset:1000 })
+      .bindTooltip(t('pickupLbl') + ': ' + p.name, { direction:'top', offset:[0,-46], className:'wayz-tooltip' })
+      .addTo(routeLayer);
+  }
+  if(destId){
+    const d = locById[destId];
+    L.marker([d.lat,d.lng], { icon: pinIcon('dest', true), zIndexOffset:1000 })
+      .bindTooltip(t('destLbl') + ': ' + d.name, { direction:'top', offset:[0,-46], className:'wayz-tooltip' })
+      .addTo(routeLayer);
+  }
+}
+
+async function updateMapRoute(pickup, dest){
+  if(!map) initMap();
+  updateMapSelectionMarkers();
+
+  map.fitBounds(L.latLngBounds([[pickup.lat,pickup.lng],[dest.lat,dest.lng]]), { padding:[60,60] });
+
+  let distanceKm = haversineKm(pickup.lat,pickup.lng,dest.lat,dest.lng);
+  let minutes = Math.ceil(distanceKm * 1.6);
+  let geometry = [[pickup.lat,pickup.lng],[dest.lat,dest.lng]];
+
+  try{
+    const url = `https://router.project-osrm.org/route/v1/driving/${pickup.lng},${pickup.lat};${dest.lng},${dest.lat}?overview=full&geometries=geojson`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if(data.routes && data.routes.length){
+      distanceKm = data.routes[0].distance / 1000;
+      minutes = Math.ceil(data.routes[0].duration / 60);
+      geometry = data.routes[0].geometry.coordinates.map(c => [c[1],c[0]]);
+    }
+  }catch(e){ /* fall back to the straight-line estimate above */ }
+
+  routeLine = L.polyline(geometry, { color:'#124f43', weight:3, opacity:0.9 }).addTo(map);
+
+  document.getElementById('meterDistance').textContent = `${distanceKm.toFixed(1)} km`;
+  document.getElementById('meterDuration').textContent = `${minutes} min`;
+}
+
+/* ================================================================
+   DRIVER LIST — full roster, searchable by name or vehicle type
+   ================================================================ */
+function populateVehicleFilter(){
+  const sel = document.getElementById('rosterVehicleFilter');
+  const types = [...new Set(DRIVERS.map(d => d.vehicle))].sort();
+  sel.innerHTML = `<option value="">${t('allVehicleTypes')}</option>` +
+    types.map(v => `<option value="${v}">${v}</option>`).join('');
+}
+
+function renderRosterList(){
+  const container = document.getElementById('rosterContainer');
+  container.innerHTML = DRIVERS.map(d => driverCardHTML(d, 'roster-')).join('');
+
+}
+
+function filterDriverList(){
+  const query = document.getElementById('rosterSearchInput').value.trim().toLowerCase();
+  const vehicle = document.getElementById('rosterVehicleFilter').value;
+  let visibleCount = 0;
+
+  DRIVERS.forEach(d => {
+    const card = document.getElementById(`driver-card-roster-${d.id}`);
+    if(!card) return;
+    const matchesQuery = !query || d.name.toLowerCase().includes(query) || d.vehicle.toLowerCase().includes(query);
+    const matchesVehicle = !vehicle || d.vehicle === vehicle;
+    const show = matchesQuery && matchesVehicle;
+    card.classList.toggle('dimmed', !show);
+    if(show) visibleCount++;
+  });
+
+  const countEl = document.getElementById('rosterCount');
+  if(!query && !vehicle){
+    countEl.textContent = `${t('showingAll')} ${DRIVERS.length} ${t('driversWord')}.`;
+  } else {
+    countEl.textContent = `${t('showing')} ${visibleCount} ${t('of')} ${DRIVERS.length} ${t('driversWord')}.`;
+  }
+}
+
+/* ================================================================
+   CITY TOUR SHORTCUT
+   ================================================================ */
+function startCityTour(){
+  navigateTo('drivers');
+  setTimeout(() => {
+    document.getElementById('pickupSelect').value = 'university';
+    onPickupChange();
+    setTimeout(() => {
+      document.getElementById('destSelect').value = 'pagoda';
+      runSearch();
+    }, 60);
+  }, 80);
+}
+
+/* ================================================================
+   CONTACT FORM
+   ================================================================ */
+function sendMessage(event){
+  event.preventDefault();
+  showToast(t('messageSent'));
+  event.target.reset();
+}
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+function showToast(message, type = 'success'){
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast active' + (type === 'error' ? ' error' : '');
+  setTimeout(() => { toast.classList.remove('active'); }, 3200);
+}
+
+/* ================================================================
+   INIT
+   ================================================================ */
+(async function initLanguage(){
+  let savedLang = 'en';
+  try{
+    if(window.storage){
+      const res = await window.storage.get('wayz-lang', false);
+      if(res && (res.value === 'en' || res.value === 'my')) savedLang = res.value;
+    }
+  }catch(e){ /* no saved preference yet */ }
+  setLanguage(savedLang);
+})();
+
+/* Try loading the authoritative driver roster from the PHP/MySQL
+   API on startup; if it's unreachable, the hard-coded DRIVERS
+   array above (already rendered) is used as-is. */
+(async function loadDriversFromApi(){
+  try{
+    const data = await apiGet('get_drivers.php');
+    apiAvailable = true;
+    mergeDriverExtras(data.drivers);
+    renderRosterList();
+  }catch(e){
+    apiAvailable = false;
+  }
+})();
+</script>
+
+
+</body></html>
