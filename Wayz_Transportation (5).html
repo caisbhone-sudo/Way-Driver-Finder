@@ -1346,11 +1346,14 @@ function driverCardHTML(d, prefix=''){
           <div class="driver-base">${locById[d.base].name}</div>
         </div>
 
-        <div class="driver-phone">📞 ${d.phone}</div>
+       <div class="driver-phone">
+          <span>📞 <b>${d.phone}</b></span>
+          <span>🕑 <b>${d.experience}</b></span>
+          </div>
 
         <div class="driver-meta">
           <span>🚗 <b>${d.vehicle}</b></span>
-          <span>🕓 <b>${d.experience}</b></span>
+          <span>📌 <b>${d.carNumber}</b></span>
         </div>
 
         <a class="call-now-btn" href="tel:${d.phone.replace(/\\s+/g,'')}">📞 ${t('callBtnPrefix')} ${d.name.split(' ')[0]} ${t('callBtnSuffix')}</a>
