@@ -529,7 +529,19 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
   .hero{ padding:70px 20px 170px; }
   .section-header h3{ font-size:30px; }
   .search-grid{ grid-template-columns:1fr; }
-  .trust-strip{ grid-template-columns:1fr 1fr; }
+ .trust-strip { 
+    display: flex !important;
+    flex-wrap: wrap;
+  }
+  .trust-strip .trust-item {
+    flex: 1 1 50%; /* အပေါ်က ၂ ခုကို တစ်ဝက်စီ ၅၀% ယူခိုင်းတာပါ */
+    box-sizing: border-box;
+  }
+  .trust-strip .trust-item:nth-child(3) { 
+    flex: 1 1 100%; /* တတိယတစ်ခုကို တစ်တန်းလုံး ၁၀၀% အပြည့်ယူခိုင်းလိုက်တာပါ */
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-right: none !important;
+  }
   .why-grid{ grid-template-columns:1fr; }
   .home-body{ margin-top: 40px !important; }
   .about-highlights{ grid-template-columns:1fr; }
