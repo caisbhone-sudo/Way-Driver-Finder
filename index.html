@@ -291,10 +291,11 @@ section.active{ display:block; animation:fadeUp .5s ease; }
 
 /* Custom Leaflet pin markers (teardrop), built with divIcon so no external
    image assets are required — keeps everything self-contained in one file. */
-.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35)); }
+.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35)); display:block; }
 .wayz-pin .pin-body{
   position:absolute; top:0; left:0; width:34px; height:34px; border-radius:50% 50% 50% 0;
-  transform:rotate(45deg); border:2px solid #fff;
+  transform:rotate(-45deg); transform-origin:center center; border:2px solid #fff;
+  box-sizing:border-box;
 }
 .wayz-pin .pin-dot{
   position:absolute; top:9px; left:9px; width:16px; height:16px; border-radius:50%; background:#fff;
@@ -1378,7 +1379,7 @@ function pinIcon(kind, withPulse){
     className: '',
     html: `<div class="wayz-pin pin-${kind}"><div class="pin-body"></div><div class="pin-dot"></div>${withPulse ? '<div class="wayz-pin-pulse"></div>' : ''}</div>`,
     iconSize: size,
-    iconAnchor: [size[0]/2, size[1]]
+    iconAnchor: [size[0] / 2, size[1] - 2]
   });
 }
 
