@@ -6,7 +6,7 @@
 <title>Wayz Driver Finder — Trusted Rides Across Naypyitaw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./css/style.css" rel="stylesheet">
+⁠<link href="./css/style.css" rel="stylesheet">⁠
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -248,8 +248,23 @@ section.active{ display:block; animation:fadeUp .5s ease; }
 .map-click-hint{ font-size:11.5px; color:rgba(255,255,255,.65); text-align:center; margin-top:-4px; }
 .map-wrap{
   position:relative; border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
-  border:1px solid var(--line); height:820px; background:#e7e3d5;
+  border:1px solid var(--line); height:480px; min-height:400px; background:#e7e3d5;
 }
+.passenger-panel{
+  position:absolute; top:16px; right:16px; z-index:660; width:min(300px, calc(100% - 32px));
+  background:rgba(255,255,255,.96); backdrop-filter:blur(8px); border-radius:16px;
+  box-shadow:0 16px 40px -16px rgba(11,51,44,.35); border:1px solid rgba(17,79,67,.12);
+  overflow:hidden;
+}
+.passenger-panel-header{
+  padding:14px 16px; background:linear-gradient(135deg, var(--teal), var(--teal-deep));
+  color:#fff; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:.08em;
+}
+.passenger-panel-body{ padding:14px 16px 16px; display:flex; flex-direction:column; gap:12px; }
+.passenger-panel-placeholder{ font-size:13px; color:var(--ink-soft); line-height:1.6; }
+.passenger-panel-title{ font-size:16px; font-weight:800; color:var(--ink); }
+.passenger-panel-image{ width:100%; height:140px; object-fit:cover; border-radius:12px; border:1px solid var(--line); background:var(--cream-dim); }
+.passenger-panel-desc{ font-size:13px; color:var(--ink-soft); line-height:1.6; }
 .route-note{
   grid-column:1/-1; background:var(--cream-dim); border:1px solid var(--line); border-radius:var(--radius-sm);
   padding:14px 18px; font-size:13px; color:var(--ink-soft); line-height:1.6;
@@ -291,11 +306,10 @@ section.active{ display:block; animation:fadeUp .5s ease; }
 
 /* Custom Leaflet pin markers (teardrop), built with divIcon so no external
    image assets are required — keeps everything self-contained in one file. */
-.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35)); display:block; }
+.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35)); }
 .wayz-pin .pin-body{
   position:absolute; top:0; left:0; width:34px; height:34px; border-radius:50% 50% 50% 0;
-  transform:rotate(-45deg); transform-origin:center center; border:2px solid #fff;
-  box-sizing:border-box;
+  transform:rotate(45deg); border:2px solid #fff;
 }
 .wayz-pin .pin-dot{
   position:absolute; top:9px; left:9px; width:16px; height:16px; border-radius:50%; background:#fff;
@@ -619,7 +633,6 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       <div class="form-group">
         <div class="form-group-head">
           <label data-i18n="pickupLabel">Pickup Location</label>
-          <button class="gps-btn" onclick="useMyLocation()" type="button" data-i18n="useMyLocation">📍 Use my location</button>
         </div>
         <select id="pickupSelect" onchange="onPickupChange()"><option value="">Select pickup location</option></select>
       </div>
@@ -631,7 +644,6 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       </div>
       <button class="search-btn" onclick="runSearch()" type="button" data-i18n="findDriversBtn">Find Drivers</button>
     </div>
-    <div class="search-hint" id="searchHint" data-i18n-html="routeHint">Tip: try <b>NSPU – Naypyitaw State Polytechnic University → Uppatasanti Pagoda</b> to preview our City Tour route.</div>
   </div>
 
   <div class="route-panel" id="routePanel">
@@ -646,8 +658,13 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
     </div>
     <div class="map-wrap">
       <div id="map"></div>
+      <aside class="passenger-panel" id="passengerPanel">
+        <div class="passenger-panel-header">Location Details</div>
+        <div class="passenger-panel-body">
+          <p class="passenger-panel-placeholder">Select a landmark on the map to view its details.</p>
+        </div>
+      </aside>
       <div class="map-loading" id="mapLoading"><div class="spinner"></div><div data-i18n="mapLoadingLbl">Loading map…</div></div>
-      <button type="button" class="map-locate-btn" onclick="useMyLocation()" title="Use my location" aria-label="Use my location">📍</button>
       <div class="map-legend">
         <span><i class="dot-hub"></i> <span data-i18n="legendHub">Hub</span></span>
         <span><i class="dot-spot"></i> <span data-i18n="legendSpot">Spot</span></span>
@@ -706,7 +723,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       <h4 data-i18n="cityTourTitle">Guided City Tour of Naypyitaw</h4>
       <p data-i18n="cityTourSub">Ride from Wayz Campus Hub out to the Uppatasanti Pagoda and other landmarks with a knowledgeable local driver. Fixed base, fixed route, transparent fare — every time.</p>
       <div class="city-tour-actions">
-        <a class="btn-outline-light" href="https://www.google.com/maps/search/Uppatasanti+Pagoda+Naypyidaw+Myanmar" target="_blank" rel="noopener" data-i18n="openInMaps">Open in Maps ↗</a>
+        <button class="btn-outline-light" type="button" onclick="showAllLandmarkMap()" data-i18n="viewOnMap">View on Map</button>
       </div>
     </div>
   </div>
@@ -810,6 +827,17 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
 /* ================================================================
    DATA — LOCATIONS (9 driver hubs + 10 landmarks, corrected coordinates)
    ================================================================ */
+const LOCATION_COORDS = {
+  pagoda: [19.7686, 96.1793],
+  'zoological-gardens': [19.8183, 96.2736],
+  'safari-park': [19.8248, 96.2657],
+  'gems-museum': [19.7303, 96.1495],
+  'landmark-garden': [19.7999, 96.2573],
+  'water-fountain-garden': [19.7466, 96.1824],
+  'parliament-viewpoint': [19.7788, 96.0763],
+  'yan-aung-myin-pagoda': [19.6841, 96.1118]
+};
+
 const LOCATIONS = [
   { id:"ocean", name:"Ocean Super Center Hub (Ottarathiri)", lat:19.817165195371956, lng:96.15440628725972, base:true },
   { id:"train-station", name:"Naypyidaw Central Railway Station", lat:19.85, lng:96.1961, base:true },
@@ -819,7 +847,7 @@ const LOCATIONS = [
   { id:"university", name:"NSPU – Naypyitaw State Polytechnic University", lat:19.848515, lng:96.159470, base:true },
   { id:"myoma", name:"Myoma Market", lat:19.739, lng:96.136, base:true },
   { id:"junction", name:"Junction Supermarket", lat:19.7562, lng:96.0827, base:true },
-  { id:"hospital", name:"Naypyitaw General Hospital", lat:19.7126, lng:96.1017, base:true },
+  { id:"hospital", name:"Naypyidaw General Hospital", lat:19.7126, lng:96.1017, base:true },
   { id:"yau", name:"Yezin Agricultural University (YAU)", lat:19.8333, lng:96.2667, base:false },
   { id:"forestry-uni", name:"University of Forestry & Environmental Science", lat:19.8375, lng:96.2642, base:false },
   { id:"hypermarket", name:"Capital Hypermarket Naypyidaw", lat:19.7314, lng:96.0955, base:false },
@@ -829,9 +857,23 @@ const LOCATIONS = [
   { id:"transport-ministry", name:"Ministry of Transport & Communications", lat:19.7891, lng:96.134, base:false },
   { id:"education-ministry", name:"Ministry of Education (Office No. 13)", lat:19.7876, lng:96.1368, base:false },
   { id:"foreign-ministry", name:"Ministry of Foreign Affairs", lat:19.8164, lng:96.1432, base:false },
-  { id:"pagoda", name:"Uppatasanti Pagoda", lat:19.7711, lng:96.183, base:false }
+  { id:"pagoda", name:"Uppatasanti Pagoda", lat:19.7711, lng:96.183, base:false },
+  { id:"zoological-gardens", name:"Naypyidaw Zoological Gardens", lat:19.7825, lng:96.1350, base:false },
+  { id:"safari-park", name:"Naypyidaw Safari Park", lat:19.7685, lng:96.1320, base:false },
+  { id:"gems-museum", name:"Myanmar Gems Museum", lat:19.7340, lng:96.1119, base:false },
+  { id:"landmark-garden", name:"National Landmark Garden", lat:19.7580, lng:96.0970, base:false },
+  { id:"water-fountain-garden", name:"Water Fountain Garden", lat:19.7630, lng:96.1030, base:false },
+  { id:"parliament-viewpoint", name:"Parliament Building (Viewpoint)", lat:19.7610, lng:96.0792, base:false },
+  { id:"yan-aung-myin-pagoda", name:"Yan Aung Myin Pagoda", lat:19.7560, lng:96.1490, base:false }
 ];
-const locById = Object.fromEntries(LOCATIONS.map(l => [l.id, l]));
+const locById = Object.fromEntries(LOCATIONS.map(loc => {
+  const coords = LOCATION_COORDS[loc.id];
+  return [loc.id, {
+    ...loc,
+    lat: coords ? coords[0] : loc.lat,
+    lng: coords ? coords[1] : loc.lng
+  }];
+}));
 
 /* ================================================================
    DATA — DRIVERS (36 drivers, 4 per hub, 6 vehicle types)
@@ -903,7 +945,7 @@ const TRANSLATIONS = {
     whyEyebrow:"Why Riders Trust Us",
     whyTitle:"Built for safety, transparency & speed",
     whySub:"Every driver on Wayz is tied to a fixed base and a verified set of routes — so you always know who's coming, and exactly what it costs.",
-    why1Title:"Detailed Driver Profiles", why1Sub:"View  completed trips, and vehicle details beforehand to choose the right person for your ride.",
+    why1Title:"Detailed Driver Profiles", why1Sub:"​View  completed trips, and vehicle details beforehand to choose the right person for your ride.",
     why2Title:"Flexible Vehicle Choices", why2Sub:"Choose the right vehicle to match your trip, group size, and budget.",
     why3Title:"Background Checked Drivers", why3Sub:"All drivers are verified and background-checked to ensure passenger safety.",
     why4Title:"Direct Contact", why4Sub:"Every driver card shows a direct phone number — call and confirm your ride in seconds, no middlemen.",
@@ -943,7 +985,7 @@ const TRANSLATIONS = {
     servicesSub:"One focused service, done properly: guided rides through the capital's landmarks with drivers who know every route.",
     featuredRoute:"Featured Route", cityTourTitle:"Guided City Tour of Naypyitaw",
     cityTourSub:"Ride from Wayz Campus Hub out to the Uppatasanti Pagoda and other landmarks with a knowledgeable local driver. Fixed base, fixed route, transparent fare — every time.",
-    openInMaps:"Open in Maps ↗",
+    viewOnMap:"View on Map",
     aboutEyebrow:"About Wayz Transportation", aboutTitle:"A driver network built on accountability",
     aboutP1:"Wayz Transportation connects riders across Naypyitaw with a fixed roster of licensed drivers — each tied to a real base location, a real vehicle, and a real set of routes they've committed to serving.",
     aboutP2:"There's no app to install and no account to create. You search a route, see who covers it, and call them directly to confirm your ride.",
@@ -977,7 +1019,7 @@ const TRANSLATIONS = {
     whyEyebrow:"အဘယ်ကြောင့် ယုံကြည်ကြသနည်း",
     whyTitle:"လုံခြုံမှု၊ ပွင့်လင်းမြင်သာမှုနှင့် အမြန်နှုန်းအတွက် တည်ဆောက်ထားသည်",
     whySub:"Wayz ပေါ်ရှိ ယာဉ်မောင်းတိုင်းသည် သတ်မှတ်ကားဂိတ်နှင့် စိစစ်ပြီးလမ်းကြောင်းများနှင့် ချိတ်ဆက်ထားသည်။",
-    why1Title:"ယာဉ်မောင်းအချက်အလက်ကြည့်ရှုနိုင်မှု", why1Sub:"ယာဉ်မောင်းတစ်ဦးချင်းစီ၏ မောင်းနှင်ခဲ့သည့် ခရီးစဉ်အရေအတွက်နှင့် ကားအမျိုးအစားတို့ကို ကြိုတင်ကြည့်ရှုပြီး မိမိစိတ်ကြိုက် ယာဉ်မောင်းကို စိစစ်ရွေးချယ်နိုင်ပါသည်။",
+    why1Title:"ယာဉ်မောင်းအချက်အလက်ကြည့်ရှုနိုင်မှု", why1Sub:"​ယာဉ်မောင်းတစ်ဦးချင်းစီ၏ မောင်းနှင်ခဲ့သည့် ခရီးစဉ်အရေအတွက်နှင့် ကားအမျိုးအစားတို့ကို ကြိုတင်ကြည့်ရှုပြီး မိမိစိတ်ကြိုက် ယာဉ်မောင်းကို စိစစ်ရွေးချယ်နိုင်ပါသည်။",
     why2Title:"ယာဥ်အမျိုးအစားအား စိတ်ကြိုက်ရွေးချယ်နိုင်မှု", why2Sub:"မိမိသွားမည့် ခရီးစဉ်အခြေအနေ၊ လူဦးရေနှင့် ဘတ်ဂျက်အပေါ် မူတည်ပြီး သင့်တော်မည့် ကားအမျိုးအစားကို စိတ်ကြိုက်ရွေးချယ် အသုံးပြုနိုင်ပါသည်။",
     why3Title:"နောက်ခံသမိုင်:စိစစ်ပြီး ယာဥ်မောင်းများ", why3Sub:"ခရီးသည်များ ဘေးကင်းစေရန်အတွက် ယာဉ်မောင်းတိုင်း၏ ကိုယ်ရေးအချက်အလက်နှင့် ပြစ်မှုကင်းရှင်းကြောင်းကို စနစ်တကျ စိစစ်ထားပါသည်။",
     why4Title:"တိုက်ရိုက်ဆက်သွယ်မှု", why4Sub:"ယာဉ်မောင်းကတ်တိုင်းတွင် ဖုန်းနံပါတ်ပါဝင်ပြီး ချက်ချင်းခေါ်ဆိုနိုင်သည်။",
@@ -1131,8 +1173,9 @@ function mergeDriverExtras(list){
 /* ================================================================
    STATE
    ================================================================ */
-let map, routeLayer, routeLine;
+let map, routeLayer, routeLine, landmarkLayer;
 let mapInitialized = false;
+let locationMarkers = [];
 
 /* ================================================================
    NAVIGATION
@@ -1203,9 +1246,25 @@ function refreshLocationSelects(){
   destSel.value = destOptions.some(l => l.id === destId) ? destId : '';
 }
 
+function updateMap(){
+  const pickupId = document.getElementById('pickupSelect').value;
+  const destId = document.getElementById('destSelect').value;
+
+  if(pickupId && destId){
+    const pickup = locById[pickupId];
+    const dest = locById[destId];
+    if(pickup && dest){
+      updateMapRoute(pickup, dest);
+      return;
+    }
+  }
+
+  updateMapSelectionMarkers();
+}
+
 function onPickupChange(){
   refreshLocationSelects();
-  updateMapSelectionMarkers();
+  updateMap();
   const pickupId = document.getElementById('pickupSelect').value;
   const destId = document.getElementById('destSelect').value;
   if(pickupId && destId){ runSearch(); } else { clearResults(); }
@@ -1213,7 +1272,7 @@ function onPickupChange(){
 
 function onDestChange(){
   refreshLocationSelects();
-  updateMapSelectionMarkers();
+  updateMap();
   const pickupId = document.getElementById('pickupSelect').value;
   const destId = document.getElementById('destSelect').value;
   if(pickupId && destId){ runSearch(); } else { clearResults(); }
@@ -1239,27 +1298,101 @@ function haversineKm(lat1,lng1,lat2,lng2){
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
-function useMyLocation(){
+function normalizeAddressText(value = ''){
+  return String(value || '')
+    .toLowerCase()
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+function findBestLocationMatch(latitude, longitude, addressText = ''){
+  const normalizedAddress = normalizeAddressText(addressText);
+  let best = null;
+  let bestScore = -Infinity;
+  let bestDistance = Infinity;
+
+  LOCATIONS.forEach(loc => {
+    const dist = haversineKm(latitude, longitude, loc.lat, loc.lng);
+    const normalizedName = normalizeAddressText(loc.name);
+    let score = 0;
+
+    if(normalizedAddress && normalizedName){
+      if(normalizedAddress.includes(normalizedName) || normalizedName.includes(normalizedAddress)){
+        score += 20;
+      }
+      const addressTokens = normalizedAddress.split(/\s+/);
+      const nameTokens = normalizedName.split(/\s+/);
+      const overlap = addressTokens.filter(token => nameTokens.includes(token)).length;
+      score += overlap * 3;
+    }
+
+    const distanceBoost = Math.max(0, 8 - Math.round(dist));
+    const totalScore = score + distanceBoost;
+
+    if(totalScore > bestScore || (totalScore === bestScore && dist < bestDistance)){
+      best = loc;
+      bestScore = totalScore;
+      bestDistance = dist;
+    }
+  });
+
+  return best;
+}
+
+async function reverseGeocode(latitude, longitude){
+  const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}&zoom=16&addressdetails=1`;
+  try{
+    const res = await fetch(url, {
+      headers: { 'Accept-Language': 'en' }
+    });
+    if(!res.ok) throw new Error('reverse geocode failed');
+    const data = await res.json();
+    return data.display_name || '';
+  }catch(e){
+    return '';
+  }
+}
+
+async function useMyLocation(){
   if(!navigator.geolocation){
     showToast(t('geoUnsupported'), 'error');
     return;
   }
+
   showToast(t('findingNearestHub'));
+
+  const pickupSel = document.getElementById('pickupSelect');
+  if(!pickupSel) return;
+
   navigator.geolocation.getCurrentPosition(
-    pos => {
+    async pos => {
       const { latitude, longitude } = pos.coords;
-      let nearest = null, best = Infinity;
-      LOCATIONS.filter(l => l.base).forEach(l => {
-        const d = haversineKm(latitude, longitude, l.lat, l.lng);
-        if(d < best){ best = d; nearest = l; }
-      });
-      if(nearest){
-        document.getElementById('pickupSelect').value = nearest.id;
+      const addressText = await reverseGeocode(latitude, longitude);
+      const match = findBestLocationMatch(latitude, longitude, addressText);
+
+      if(match){
+        pickupSel.value = match.id;
         onPickupChange();
-        showToast(`${t('nearestHubToast')} ${nearest.name} (${best.toFixed(1)} km)`);
+        const label = addressText ? ` (${addressText})` : '';
+        showToast(`${t('nearestHubToast')} ${match.name}${label}`);
+      } else {
+        showToast(t('geoDenied'), 'error');
       }
     },
-    () => showToast(t('geoDenied'), 'error')
+    error => {
+      let message = t('geoDenied');
+      if(error.code === 1){
+        message = t('geoDenied');
+      } else if(error.code === 2){
+        message = 'Location unavailable right now.';
+      } else if(error.code === 3){
+        message = 'Location request timed out.';
+      }
+      showToast(message, 'error');
+    },
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
   );
 }
 
@@ -1366,20 +1499,61 @@ function driverCardHTML(d, prefix=''){
    MAP (Leaflet, styled with the CARTO Voyager basemap for a more
    attractive, softly-colored look than plain OSM tiles). Every one
    of the 24 pickup/destination locations is plotted as a clickable
-   pin — tapping a pin sets it as the pickup, then the destination,
-   right from the map. There are no live driver positions on this
-   map; it only ever shows the fixed set of locations plus the
-   chosen route.
+   circle marker — tapping a marker sets it as the pickup, then the
+   destination, right from the map. There are no live driver positions
+   on this map; it only ever shows the fixed set of locations plus
+   the chosen route.
    ================================================================ */
-/* Builds a Grab-style teardrop pin as a Leaflet divIcon — no external
-   image assets required, everything is drawn with the CSS above. */
-function pinIcon(kind, withPulse){
-  const size = (kind === 'pickup' || kind === 'dest') ? [40,52] : [34,44];
-  return L.divIcon({
-    className: '',
-    html: `<div class="wayz-pin pin-${kind}"><div class="pin-body"></div><div class="pin-dot"></div>${withPulse ? '<div class="wayz-pin-pulse"></div>' : ''}</div>`,
-    iconSize: size,
-    iconAnchor: [size[0] / 2, size[1] - 2]
+function createSvgIcon(label, color, background, accent = '#fff'){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+    <rect x="8" y="8" width="48" height="48" rx="16" fill="${background}" />
+    <path d="M32 10c-8 0-14 6-14 14 0 9 10 20 13 23a1 1 0 0 0 1.5 0c3-3 13-14 13-23 0-8-6-14-14-14z" fill="${color}" />
+    <circle cx="32" cy="24" r="7" fill="${accent}" />
+    <text x="32" y="54" text-anchor="middle" font-size="14" font-family="Arial, sans-serif" font-weight="700" fill="${accent}">${label}</text>
+  </svg>`;
+  return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
+}
+
+function getLocationIcon(loc, kind = 'location'){
+  const id = (loc && loc.id) || '';
+  const iconMap = {
+    hospital: createSvgIcon('🏥', '#d94b4b', '#ffe4e4'),
+    shop: createSvgIcon('🛍', '#1c7d68', '#e7f6f2'),
+    park: createSvgIcon('🌳', '#2f9c6b', '#edf9f1'),
+    landmark: createSvgIcon('🗺', '#a97b23', '#fdf6e5'),
+    station: createSvgIcon('🚉', '#0b332c', '#f3f2e8'),
+    museum: createSvgIcon('🏛', '#6c4f9d', '#f2eaff'),
+    pickup: createSvgIcon('📍', '#2f6bff', '#eaf1ff'),
+    dest: createSvgIcon('🎯', '#c1483a', '#ffecec')
+  };
+
+  if(kind === 'pickup') return iconMap.pickup;
+  if(kind === 'dest') return iconMap.dest;
+  if(/hospital|clinic/.test(id)) return iconMap.hospital;
+  if(/shop|market|super|junction|hypermarket/.test(id)) return iconMap.shop;
+  if(/park|zoo|garden|safari/.test(id)) return iconMap.park;
+  if(/museum|gems/.test(id)) return iconMap.museum;
+  if(/station|airport|train/.test(id)) return iconMap.station;
+  if(/pagoda|viewpoint|landmark|parliament/.test(id)) return iconMap.landmark;
+  return iconMap.landmark;
+}
+
+function createCircleMarker(latlng, kind, options = {}){
+  const loc = options.location || null;
+  const icon = L.icon({
+    iconUrl: getLocationIcon(loc, kind),
+    iconRetinaUrl: getLocationIcon(loc, kind),
+    iconSize:[40, 40],
+    iconAnchor:[20, 40],
+    popupAnchor:[0, -40],
+    tooltipAnchor:[0, -36]
+  });
+
+  return L.marker(latlng, {
+    icon,
+    interactive: true,
+    bubblingMouseEvents: false,
+    ...options
   });
 }
 
@@ -1391,27 +1565,32 @@ function initMap(){
   map = L.map('map', { zoomControl:false }).setView([19.7450,96.1600], 11);
   L.control.zoom({ position:'bottomright' }).addTo(map);
 
-  const tiles = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    subdomains:'abcd', maxZoom:20
+  const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors',
+    maxZoom: 19
   }).addTo(map);
 
   const loadingEl = document.getElementById('mapLoading');
   const hideLoading = () => { if(loadingEl) loadingEl.style.opacity = '0'; setTimeout(() => { if(loadingEl) loadingEl.style.display='none'; }, 300); };
   tiles.once('load', hideLoading);
-  setTimeout(hideLoading, 2500); // safety net if the 'load' event never fires
+  setTimeout(hideLoading, 2500);
 
   routeLayer = L.layerGroup().addTo(map);
-
-  LOCATIONS.forEach(l => {
-    const marker = L.marker([l.lat,l.lng], { icon: pinIcon(l.base ? 'hub' : 'spot') })
-      .bindTooltip(locationOptionLabel(l), { direction:'top', offset:[0,-38], className:'wayz-tooltip' })
-      .addTo(map);
-    marker.on('click', () => selectLocationFromMap(l.id));
-  });
-
+  landmarkLayer = L.layerGroup().addTo(map);
+  locationMarkers = [];
   mapInitialized = true;
+  plotAllPersistentLocations();
+  setTimeout(() => {
+    if(map) map.invalidateSize();
+  }, 100);
 }
+
+window.addEventListener('load', () => {
+  initMap();
+  setTimeout(() => {
+    if(map) map.invalidateSize();
+  }, 200);
+});
 
 /* Clicking a location pin fills pickup first, then destination.
    Clicking the current pickup again clears the whole selection;
@@ -1448,33 +1627,173 @@ function selectLocationFromMap(locId){
   showToast(`${t('pickupSetToast')} ${loc.name}`);
 }
 
-/* Draws (or clears) the green pickup pin and red destination pin on
-   the map to reflect whatever is currently selected in the dropdowns,
-   even before a full route search has run. */
-function updateMapSelectionMarkers(){
+/* Draws (or clears) the pickup and destination dots on the map.
+   When a route geometry is provided, the markers are placed exactly on
+   the first and last coordinates of the route polyline. */
+function getLocationDetail(loc){
+  const id = (loc && loc.id) || '';
+  const detailMap = {
+    pagoda: {
+      title: 'Uppatasanti Pagoda',
+      description: 'A striking white pagoda and one of Naypyidaw’s most recognizable landmarks, known for its peaceful hilltop setting and ceremonial importance.',
+      image: createSvgIcon('⛩', '#a97b23', '#fdf6e5')
+    },
+    'zoological-gardens': {
+      title: 'Naypyidaw Zoological Gardens',
+      description: 'A family-friendly attraction where visitors can explore native and exotic animal habitats in a spacious park setting.',
+      image: createSvgIcon('🦁', '#2f9c6b', '#edf9f1')
+    },
+    'safari-park': {
+      title: 'Naypyidaw Safari Park',
+      description: 'A large wildlife attraction designed for scenic drives, animal encounters, and relaxed outdoor exploration.',
+      image: createSvgIcon('🦒', '#2f9c6b', '#edf9f1')
+    },
+    'gems-museum': {
+      title: 'Myanmar Gems Museum',
+      description: 'A cultural and commercial destination highlighting Myanmar’s gemstone heritage, craftsmanship, and trade history.',
+      image: createSvgIcon('💎', '#6c4f9d', '#f2eaff')
+    },
+    'landmark-garden': {
+      title: 'National Landmark Garden',
+      description: 'A landscaped civic garden featuring statues, formal pathways, and a sense of national symbolism.',
+      image: createSvgIcon('🌿', '#1c7d68', '#e7f6f2')
+    },
+    'water-fountain-garden': {
+      title: 'Water Fountain Garden',
+      description: 'A scenic urban garden known for its decorative fountains, walking paths, and evening atmosphere.',
+      image: createSvgIcon('💧', '#1c7d68', '#e7f6f2')
+    },
+    'parliament-viewpoint': {
+      title: 'Parliament Building (Viewpoint)',
+      description: 'An important civic landmark that offers a compelling view of the government district and the city’s planned layout.',
+      image: createSvgIcon('🏛', '#0b332c', '#f3f2e8')
+    },
+    'yan-aung-myin-pagoda': {
+      title: 'Yan Aung Myin Pagoda',
+      description: 'A spiritual sanctuary with a calm atmosphere and striking architectural details that make it a meaningful stop on a city tour.',
+      image: createSvgIcon('⛪', '#a97b23', '#fdf6e5')
+    }
+  };
+
+  const found = detailMap[id];
+  return found || {
+    title: loc && loc.name ? loc.name : 'Destination',
+    description: 'A notable Naypyidaw location that can be explored as part of a guided city tour.',
+    image: createSvgIcon('📍', '#1c7d68', '#e7f6f2')
+  };
+}
+
+function populatePassengerPanel(loc){
+  const panel = document.getElementById('passengerPanel');
+  if(!panel) return;
+  const detail = getLocationDetail(loc);
+  panel.innerHTML = `
+    <div class="passenger-panel-header">Location Details</div>
+    <div class="passenger-panel-body">
+      <img class="passenger-panel-image" src="${detail.image}" alt="${detail.title}">
+      <div class="passenger-panel-title">${detail.title}</div>
+      <div class="passenger-panel-desc">${detail.description}</div>
+    </div>`;
+}
+
+function plotAllPersistentLocations(){
+  if(!map || !landmarkLayer) return;
+  landmarkLayer.clearLayers();
+
+  const landmarkIds = Object.keys(LOCATION_COORDS);
+  const bounds = [];
+
+  landmarkIds.forEach(id => {
+    const loc = locById[id];
+    if(!loc) return;
+
+    const marker = createCircleMarker([loc.lat, loc.lng], 'spot', { location: loc, zIndexOffset:500 })
+      .bindTooltip(loc.name, { direction:'top', offset:[0,-10], className:'wayz-tooltip' });
+
+    marker.on('click', () => {
+      populatePassengerPanel(loc);
+      map.panTo([loc.lat, loc.lng]);
+    });
+
+    marker.addTo(landmarkLayer);
+    bounds.push([loc.lat, loc.lng]);
+  });
+
+  if(bounds.length){
+    map.fitBounds(L.latLngBounds(bounds), { padding:[50,50] });
+  }
+}
+
+function showAllLandmarkMap(){
+  const driversSection = document.getElementById('drivers');
+  document.querySelectorAll('section').forEach(section => section.classList.remove('active'));
+  if(driversSection){ driversSection.classList.add('active'); }
+
+  if(!map) initMap();
+  if(!map) return;
+
+  const routePanel = document.getElementById('routePanel');
+  if(routePanel){
+    routePanel.classList.add('active');
+  }
+
+  const mapEl = document.getElementById('map');
+  if(mapEl){
+    mapEl.scrollIntoView({ behavior:'smooth', block:'center' });
+  }
+
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+  if(routeLayer) routeLayer.clearLayers();
+  plotAllPersistentLocations();
+
+  setTimeout(() => {
+    if(map) map.invalidateSize();
+  }, 150);
+}
+
+function updateMapSelectionMarkers(routeGeometry = null){
   if(!map || !routeLayer) return;
   routeLayer.clearLayers();
-  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
 
   const pickupId = document.getElementById('pickupSelect').value;
   const destId = document.getElementById('destSelect').value;
+  const pickup = pickupId ? locById[pickupId] : null;
+  const dest = destId ? locById[destId] : null;
 
-  if(pickupId){
-    const p = locById[pickupId];
-    L.marker([p.lat,p.lng], { icon: pinIcon('pickup', true), zIndexOffset:1000 })
-      .bindTooltip(t('pickupLbl') + ': ' + p.name, { direction:'top', offset:[0,-46], className:'wayz-tooltip' })
-      .addTo(routeLayer);
+  const startLatLng = routeGeometry && routeGeometry.length
+    ? [routeGeometry[0][0], routeGeometry[0][1]]
+    : pickup ? [pickup.lat, pickup.lng] : null;
+  const endLatLng = routeGeometry && routeGeometry.length
+    ? [routeGeometry[routeGeometry.length - 1][0], routeGeometry[routeGeometry.length - 1][1]]
+    : dest ? [dest.lat, dest.lng] : null;
+
+  const selected = [];
+  if(startLatLng && pickup){
+    const marker = createCircleMarker(startLatLng, 'pickup', { location: pickup, zIndexOffset:1000 })
+      .bindTooltip(t('pickupLbl') + ': ' + pickup.name, { direction:'top', offset:[0,-12], className:'wayz-tooltip' });
+    marker.on('click', () => {
+      populatePassengerPanel(pickup);
+      map.panTo(startLatLng);
+    });
+    selected.push(marker);
   }
-  if(destId){
-    const d = locById[destId];
-    L.marker([d.lat,d.lng], { icon: pinIcon('dest', true), zIndexOffset:1000 })
-      .bindTooltip(t('destLbl') + ': ' + d.name, { direction:'top', offset:[0,-46], className:'wayz-tooltip' })
-      .addTo(routeLayer);
+  if(endLatLng && dest){
+    const marker = createCircleMarker(endLatLng, 'dest', { location: dest, zIndexOffset:1000 })
+      .bindTooltip(t('destLbl') + ': ' + dest.name, { direction:'top', offset:[0,-12], className:'wayz-tooltip' });
+    marker.on('click', () => {
+      populatePassengerPanel(dest);
+      map.panTo(endLatLng);
+    });
+    selected.push(marker);
   }
+
+  selected.forEach(marker => marker.addTo(routeLayer));
 }
 
 async function updateMapRoute(pickup, dest){
   if(!map) initMap();
+
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
   updateMapSelectionMarkers();
 
   map.fitBounds(L.latLngBounds([[pickup.lat,pickup.lng],[dest.lat,dest.lng]]), { padding:[60,60] });
@@ -1495,6 +1814,7 @@ async function updateMapRoute(pickup, dest){
   }catch(e){ /* fall back to the straight-line estimate above */ }
 
   routeLine = L.polyline(geometry, { color:'#124f43', weight:3, opacity:0.9 }).addTo(map);
+  updateMapSelectionMarkers(geometry);
 
   document.getElementById('meterDistance').textContent = `${distanceKm.toFixed(1)} km`;
   document.getElementById('meterDuration').textContent = `${minutes} min`;
@@ -1537,21 +1857,6 @@ function filterDriverList(){
   } else {
     countEl.textContent = `${t('showing')} ${visibleCount} ${t('of')} ${DRIVERS.length} ${t('driversWord')}.`;
   }
-}
-
-/* ================================================================
-   CITY TOUR SHORTCUT
-   ================================================================ */
-function startCityTour(){
-  navigateTo('drivers');
-  setTimeout(() => {
-    document.getElementById('pickupSelect').value = 'university';
-    onPickupChange();
-    setTimeout(() => {
-      document.getElementById('destSelect').value = 'pagoda';
-      runSearch();
-    }, 60);
-  }, 80);
 }
 
 /* ================================================================
