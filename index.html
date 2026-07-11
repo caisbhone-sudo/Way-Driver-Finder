@@ -6,7 +6,7 @@
 <title>Wayz Driver Finder — Trusted Rides Across Naypyitaw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-⁠
+⁠<link href="./css/style.css" rel="stylesheet">⁠
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -15,8 +15,9 @@
 .hero h1 {
     line-height: 1.6 !important;
 }
-
- 
+/* ============================================================
+   RESET + TOKENS
+   ============================================================ */
 * { margin:0; padding:0; box-sizing:border-box; }
 :root{
   --ink:#0f2620;
@@ -1588,12 +1589,12 @@ function showToast(message, type = 'success'){
 /* Try loading the authoritative driver roster from the PHP/MySQL
    API on startup; if it's unreachable, the hard-coded DRIVERS
    array above (already rendered) is used as-is. */
-//(async function loadDriversFromApi(){
+(async function loadDriversFromApi(){
   try{
-    //const data = await apiGet('get_drivers.php');
-   // apiAvailable = true;
-   // mergeDriverExtras(data.drivers);
-   // renderRosterList();
+    const data = await apiGet('get_drivers.php');
+    apiAvailable = true;
+    mergeDriverExtras(data.drivers);
+    renderRosterList();
   }catch(e){
     apiAvailable = false;
   }
