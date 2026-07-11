@@ -6,7 +6,7 @@
 <title>Wayz Driver Finder — Trusted Rides Across Naypyitaw</title>
 <link rel="preconnect" href="https://fonts.googleapis.com/">
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-⁠<link href="./css/style.css" rel="stylesheet">⁠
+<link href="./css/style.css" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
@@ -296,7 +296,8 @@ section.active{ display:block; animation:fadeUp .5s ease; }
   position:absolute; top:0; left:0; width:34px; height:34px; border-radius:50% 50% 50% 0;
   transform:rotate(45deg); border:2px solid #fff;
 }
-.wayz-pin{ position:relative; width:34px; height:44px; filter:drop-shadow(0 6px 10px rgba(11,51,44,.35));transform:rotate(-90deg) }
+.wayz-pin .pin-dot{
+  position:absolute; top:9px; left:9px; width:16px; height:16px; border-radius:50%; background:#fff;
 }
 .wayz-pin.pin-hub .pin-body{ background:var(--gold-deep); }
 .wayz-pin.pin-spot .pin-body{ background:var(--teal-mid); }
@@ -508,37 +509,37 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
      ============================================================ -->
 <header>
   <div class="header-container">
-    <button class="logo" onclick="navigateTo(&#39;home&#39;)" aria-label="Wayz Driver Finder">
+    <button class="logo" onclick="navigateTo('home')" aria-label="Wayz Driver Finder">
       <span class="logo-icon">🚕</span>
       <span class="logo-text"><h1>Wayz</h1><p data-i18n="brandSub">Driver Finder</p></span>
     </button>
 
     <nav class="main-nav">
       <ul class="nav-links">
-        <li><a onclick="navigateTo(&#39;home&#39;)" class="active" data-section="home" data-i18n="navHome">Home</a></li>
-        <li><a onclick="navigateTo(&#39;drivers&#39;)" data-section="drivers" data-i18n="navMap" class="">Map</a></li>
-        <li><a onclick="navigateTo(&#39;driverlist&#39;)" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a></li>
-        <li><a onclick="navigateTo(&#39;services&#39;)" data-section="services" data-i18n="navServices" class="">Services</a></li>
-        <li><a onclick="navigateTo(&#39;about&#39;)" data-section="about" data-i18n="navAbout" class="">About</a></li>
-        <li><a onclick="navigateTo(&#39;contact&#39;)" data-section="contact" data-i18n="navContact" class="">Contact</a></li>
+        <li><a onclick="navigateTo('home')" class="active" data-section="home" data-i18n="navHome">Home</a></li>
+        <li><a onclick="navigateTo('drivers')" data-section="drivers" data-i18n="navMap" class="">Map</a></li>
+        <li><a onclick="navigateTo('driverlist')" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a></li>
+        <li><a onclick="navigateTo('services')" data-section="services" data-i18n="navServices" class="">Services</a></li>
+        <li><a onclick="navigateTo('about')" data-section="about" data-i18n="navAbout" class="">About</a></li>
+        <li><a onclick="navigateTo('contact')" data-section="contact" data-i18n="navContact" class="">Contact</a></li>
       </ul>
     </nav>
 
     <div class="header-actions">
       <div class="lang-toggle" role="group" aria-label="Language switch">
-        <button type="button" class="lang-btn active" id="langBtnEn" onclick="setLanguage(&#39;en&#39;)">EN</button>
-        <button type="button" class="lang-btn" id="langBtnMy" onclick="setLanguage(&#39;my&#39;)">MY</button>
+        <button type="button" class="lang-btn active" id="langBtnEn" onclick="setLanguage('en')">EN</button>
+        <button type="button" class="lang-btn" id="langBtnMy" onclick="setLanguage('my')">MY</button>
       </div>
       <button class="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Toggle menu">☰</button>
     </div>
   </div>
   <div class="mobile-nav" id="mobileNav">
-    <a onclick="navigateTo(&#39;home&#39;)" class="active" data-section="home" data-i18n="navHome">Home</a>
-    <a onclick="navigateTo(&#39;drivers&#39;)" data-section="drivers" data-i18n="navMap" class="">Map</a>
-    <a onclick="navigateTo(&#39;driverlist&#39;)" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a>
-    <a onclick="navigateTo(&#39;services&#39;)" data-section="services" data-i18n="navServices" class="">Services</a>
-    <a onclick="navigateTo(&#39;about&#39;)" data-section="about" data-i18n="navAbout" class="">About</a>
-    <a onclick="navigateTo(&#39;contact&#39;)" data-section="contact" data-i18n="navContact" class="">Contact</a>
+    <a onclick="navigateTo('home')" class="active" data-section="home" data-i18n="navHome">Home</a>
+    <a onclick="navigateTo('drivers')" data-section="drivers" data-i18n="navMap" class="">Map</a>
+    <a onclick="navigateTo('driverlist')" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a>
+    <a onclick="navigateTo('services')" data-section="services" data-i18n="navServices" class="">Services</a>
+    <a onclick="navigateTo('about')" data-section="about" data-i18n="navAbout" class="">About</a>
+    <a onclick="navigateTo('contact')" data-section="contact" data-i18n="navContact" class="">Contact</a>
   </div>
 </header>
 
@@ -555,7 +556,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       <h2 data-i18n-html="heroTitle">Reliable Rides, <em>Every Route,</em><br>Every Corner of Naypyitaw</h2>
       <p data-i18n="heroSub">Pick your route, see exactly which licensed driver covers it, and call them directly — no accounts, no waiting, no guesswork.</p>
       <div class="hero-buttons">
-        <button class="btn-gold" onclick="navigateTo(&#39;drivers&#39;)" data-i18n="heroBtnFind">Find a Driver Now</button>
+        <button class="btn-gold" onclick="navigateTo('drivers')" data-i18n="heroBtnFind">Find a Driver Now</button>
         <a class="btn-outline-light" href="tel:+95966450054" data-i18n="heroBtnDispatch">📞 Speak to Dispatch</a>
       </div>
     </div>
@@ -791,11 +792,11 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       <span class="logo-text"><h1 style="color:#fff;">Wayz</h1><p data-i18n="brandSub">Driver Finder</p></span>
     </div>
     <div class="footer-links">
-      <a onclick="navigateTo(&#39;home&#39;)" data-i18n="navHome">Home</a>
-      <a onclick="navigateTo(&#39;driverlist&#39;)" data-i18n="navDriverList">Driver List</a>
-      <a onclick="navigateTo(&#39;services&#39;)" data-i18n="navServices">Services</a>
-      <a onclick="navigateTo(&#39;about&#39;)" data-i18n="navAbout">About</a>
-      <a onclick="navigateTo(&#39;contact&#39;)" data-i18n="navContact">Contact</a>
+      <a onclick="navigateTo('home')" data-i18n="navHome">Home</a>
+      <a onclick="navigateTo('driverlist')" data-i18n="navDriverList">Driver List</a>
+      <a onclick="navigateTo('services')" data-i18n="navServices">Services</a>
+      <a onclick="navigateTo('about')" data-i18n="navAbout">About</a>
+      <a onclick="navigateTo('contact')" data-i18n="navContact">Contact</a>
       <a href="tel:+95966450054" data-i18n="callNow">📞 Call Now</a>
     </div>
   </div>
@@ -901,7 +902,7 @@ const TRANSLATIONS = {
     whyEyebrow:"Why Riders Trust Us",
     whyTitle:"Built for safety, transparency & speed",
     whySub:"Every driver on Wayz is tied to a fixed base and a verified set of routes — so you always know who's coming, and exactly what it costs.",
-    why1Title:"Detailed Driver Profiles", why1Sub:"​View  completed trips, and vehicle details beforehand to choose the right person for your ride.",
+    why1Title:"Detailed Driver Profiles", why1Sub:"View  completed trips, and vehicle details beforehand to choose the right person for your ride.",
     why2Title:"Flexible Vehicle Choices", why2Sub:"Choose the right vehicle to match your trip, group size, and budget.",
     why3Title:"Background Checked Drivers", why3Sub:"All drivers are verified and background-checked to ensure passenger safety.",
     why4Title:"Direct Contact", why4Sub:"Every driver card shows a direct phone number — call and confirm your ride in seconds, no middlemen.",
@@ -975,7 +976,7 @@ const TRANSLATIONS = {
     whyEyebrow:"အဘယ်ကြောင့် ယုံကြည်ကြသနည်း",
     whyTitle:"လုံခြုံမှု၊ ပွင့်လင်းမြင်သာမှုနှင့် အမြန်နှုန်းအတွက် တည်ဆောက်ထားသည်",
     whySub:"Wayz ပေါ်ရှိ ယာဉ်မောင်းတိုင်းသည် သတ်မှတ်ကားဂိတ်နှင့် စိစစ်ပြီးလမ်းကြောင်းများနှင့် ချိတ်ဆက်ထားသည်။",
-    why1Title:"ယာဉ်မောင်းအချက်အလက်ကြည့်ရှုနိုင်မှု", why1Sub:"​ယာဉ်မောင်းတစ်ဦးချင်းစီ၏ မောင်းနှင်ခဲ့သည့် ခရီးစဉ်အရေအတွက်နှင့် ကားအမျိုးအစားတို့ကို ကြိုတင်ကြည့်ရှုပြီး မိမိစိတ်ကြိုက် ယာဉ်မောင်းကို စိစစ်ရွေးချယ်နိုင်ပါသည်။",
+    why1Title:"ယာဉ်မောင်းအချက်အလက်ကြည့်ရှုနိုင်မှု", why1Sub:"ယာဉ်မောင်းတစ်ဦးချင်းစီ၏ မောင်းနှင်ခဲ့သည့် ခရီးစဉ်အရေအတွက်နှင့် ကားအမျိုးအစားတို့ကို ကြိုတင်ကြည့်ရှုပြီး မိမိစိတ်ကြိုက် ယာဉ်မောင်းကို စိစစ်ရွေးချယ်နိုင်ပါသည်။",
     why2Title:"ယာဥ်အမျိုးအစားအား စိတ်ကြိုက်ရွေးချယ်နိုင်မှု", why2Sub:"မိမိသွားမည့် ခရီးစဉ်အခြေအနေ၊ လူဦးရေနှင့် ဘတ်ဂျက်အပေါ် မူတည်ပြီး သင့်တော်မည့် ကားအမျိုးအစားကို စိတ်ကြိုက်ရွေးချယ် အသုံးပြုနိုင်ပါသည်။",
     why3Title:"နောက်ခံသမိုင်:စိစစ်ပြီး ယာဥ်မောင်းများ", why3Sub:"ခရီးသည်များ ဘေးကင်းစေရန်အတွက် ယာဉ်မောင်းတိုင်း၏ ကိုယ်ရေးအချက်အလက်နှင့် ပြစ်မှုကင်းရှင်းကြောင်းကို စနစ်တကျ စိစစ်ထားပါသည်။",
     why4Title:"တိုက်ရိုက်ဆက်သွယ်မှု", why4Sub:"ယာဉ်မောင်းကတ်တိုင်းတွင် ဖုန်းနံပါတ်ပါဝင်ပြီး ချက်ချင်းခေါ်ဆိုနိုင်သည်။",
