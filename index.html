@@ -202,6 +202,19 @@ section.active{ display:block; animation:fadeUp .5s ease; }
    DRIVERS SECTION
    ============================================================ */
 #drivers{ background:var(--cream); }
+.manual-selectors{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+.mode-btn{
+  border:1px solid var(--line); background:var(--cream);
+  color:var(--ink-soft); padding:10px 16px; border-radius:999px; cursor:pointer;
+  font-weight:700; transition:var(--transition);
+}
+.mode-btn.active{ background:linear-gradient(135deg, var(--teal), var(--teal-deep)); color:#fff; border-color:transparent; }
+.driver-match-strip{ grid-column:1 / -1; order:-1; display:flex; flex-wrap:wrap; gap:12px; margin-bottom:8px; }
+.route-match-card{ min-width:220px; background:var(--white); border:1px solid var(--line); border-radius:16px; padding:14px 16px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:8px; }
+.route-match-card strong{ color:var(--teal-deep); font-size:14px; }
+.route-match-card small{ color:var(--ink-soft); font-size:12px; }
+.route-match-card .call-now-btn{ padding:10px 14px; font-size:12px; }
+.match-empty{ background:rgba(11,51,44,.08); border:1px dashed rgba(11,51,44,.18); border-radius:16px; padding:14px 16px; color:var(--ink-soft); font-size:13px; }
 .search-card{
   background:var(--white); border:1px solid var(--line); border-radius:var(--radius);
   padding:34px; box-shadow:var(--shadow-sm); margin-bottom:46px;
@@ -397,6 +410,15 @@ section.active{ display:block; animation:fadeUp .5s ease; }
    SERVICES — CITY TOUR SPOTLIGHT
    ============================================================ */
 #services{ background:var(--white); }
+.landmark-modal{ position:fixed; inset:0; z-index:2000; display:none; align-items:center; justify-content:center; padding:24px; background:rgba(5,17,16,.85); }
+.landmark-modal.active{ display:flex; }
+.landmark-modal-card{ width:min(560px, 100%); background:linear-gradient(135deg, #0f1724, #142235); color:#fff; border-radius:24px; box-shadow:0 25px 70px rgba(0,0,0,.4); overflow:hidden; border:1px solid rgba(255,255,255,.08); }
+.landmark-modal-header{ display:flex; align-items:center; justify-content:space-between; padding:18px 22px; border-bottom:1px solid rgba(255,255,255,.12); }
+.landmark-modal-header h3{ font-size:22px; color:#fff; }
+.landmark-close{ border:none; background:none; color:#fff; font-size:26px; cursor:pointer; }
+.landmark-modal-body{ display:flex; flex-direction:column; gap:10px; padding:16px 18px 22px; }
+.landmark-item{ width:100%; padding:13px 14px; text-align:left; border:none; border-radius:12px; background:rgba(255,255,255,.08); color:#fff; cursor:pointer; font-weight:600; transition:var(--transition); }
+.landmark-item:hover{ background:rgba(255,255,255,.16); transform:translateY(-1px); }
 .city-tour-card{
   display:grid; grid-template-columns:1fr 1fr; gap:0; background:linear-gradient(135deg, var(--teal-deep), var(--teal));
   border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);
@@ -534,7 +556,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
         <li><a onclick="navigateTo('home')" class="active" data-section="home" data-i18n="navHome">Home</a></li>
         <li><a onclick="navigateTo('drivers')" data-section="drivers" data-i18n="navMap" class="">Map</a></li>
         <li><a onclick="navigateTo('driverlist')" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a></li>
-        <li><a onclick="navigateTo('services')" data-section="services" data-i18n="navServices" class="">Services</a></li>
+        <li><a onclick="handleServicesAction(this, 'services-nav')" data-section="services" data-i18n="navServices" class="">Services</a></li>
         <li><a onclick="navigateTo('about')" data-section="about" data-i18n="navAbout" class="">About</a></li>
         <li><a onclick="navigateTo('contact')" data-section="contact" data-i18n="navContact" class="">Contact</a></li>
       </ul>
@@ -552,7 +574,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
     <a onclick="navigateTo('home')" class="active" data-section="home" data-i18n="navHome">Home</a>
     <a onclick="navigateTo('drivers')" data-section="drivers" data-i18n="navMap" class="">Map</a>
     <a onclick="navigateTo('driverlist')" data-section="driverlist" data-i18n="navDriverList" class="">Driver List</a>
-    <a onclick="navigateTo('services')" data-section="services" data-i18n="navServices" class="">Services</a>
+    <a onclick="handleServicesAction(this, 'services-nav')" data-section="services" data-i18n="navServices" class="">Services</a>
     <a onclick="navigateTo('about')" data-section="about" data-i18n="navAbout" class="">About</a>
     <a onclick="navigateTo('contact')" data-section="contact" data-i18n="navContact" class="">Contact</a>
   </div>
@@ -644,9 +666,14 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       </div>
       <button class="search-btn" onclick="runSearch()" type="button" data-i18n="findDriversBtn">Find Drivers</button>
     </div>
+    <div class="manual-selectors" role="group" aria-label="Manual route selectors">
+      <button class="mode-btn active" id="manualPickupBtn" type="button" onclick="setManualMode('pickup')">Choose Your Location</button>
+      <button class="mode-btn" id="manualDestBtn" type="button" onclick="setManualMode('destination')">Choose Your Destination</button>
+    </div>
   </div>
 
   <div class="route-panel" id="routePanel">
+    <div class="driver-match-strip" id="driverMatchStrip" aria-live="polite"></div>
     <div class="meter-card">
       <div class="meter-title" data-i18n="routeMeter">Route Meter</div>
       <div class="meter-route" id="meterRoute">—</div>
@@ -723,7 +750,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
       <h4 data-i18n="cityTourTitle">Guided City Tour of Naypyitaw</h4>
       <p data-i18n="cityTourSub">Ride from Wayz Campus Hub out to the Uppatasanti Pagoda and other landmarks with a knowledgeable local driver. Fixed base, fixed route, transparent fare — every time.</p>
       <div class="city-tour-actions">
-        <button class="btn-outline-light" type="button" onclick="showAllLandmarkMap()" data-i18n="viewOnMap">View on Map</button>
+        <button class="btn-outline-light" type="button" onclick="handleServicesAction(this, 'services-btn')" data-i18n="viewOnMap">View on Map</button>
       </div>
     </div>
   </div>
@@ -812,7 +839,7 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
     <div class="footer-links">
       <a onclick="navigateTo('home')" data-i18n="navHome">Home</a>
       <a onclick="navigateTo('driverlist')" data-i18n="navDriverList">Driver List</a>
-      <a onclick="navigateTo('services')" data-i18n="navServices">Services</a>
+      <a onclick="handleServicesAction(this, 'services-footer')" data-i18n="navServices">Services</a>
       <a onclick="navigateTo('about')" data-i18n="navAbout">About</a>
       <a onclick="navigateTo('contact')" data-i18n="navContact">Contact</a>
       <a href="tel:+95966450054" data-i18n="callNow">📞 Call Now</a>
@@ -1176,6 +1203,11 @@ function mergeDriverExtras(list){
 let map, routeLayer, routeLine, landmarkLayer;
 let mapInitialized = false;
 let locationMarkers = [];
+let manualSelectionMode = null;
+let manualPickupLatLng = null;
+let manualDestinationLatLng = null;
+let manualPickupMarker = null;
+let manualDestinationMarker = null;
 
 /* ================================================================
    NAVIGATION
@@ -1286,6 +1318,73 @@ function clearResults(){
       <h4>${t('emptyChooseTitle')}</h4>
       <p>${t('emptyChooseSub')}</p>
     </div>`;
+  const matchStrip = document.getElementById('driverMatchStrip');
+  if(matchStrip){ matchStrip.innerHTML = '<div class="match-empty">Choose a route to see nearby drivers.</div>'; }
+}
+
+function setManualMode(mode){
+  manualSelectionMode = mode;
+  document.getElementById('manualPickupBtn').classList.toggle('active', mode === 'pickup');
+  document.getElementById('manualDestBtn').classList.toggle('active', mode === 'destination');
+  showToast(mode === 'pickup' ? 'Pickup mode active' : 'Destination mode active');
+}
+
+function createManualMarkerIcon(color){
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
+    <path d="M22 2c-8.3 0-15 6.7-15 15 0 10.2 11.5 20.6 14.4 23.2a1.1 1.1 0 0 0 1.6 0C25.5 37.6 37 27.2 37 17c0-8.3-6.7-15-15-15z" fill="${color}" stroke="#fff" stroke-width="2"/>
+    <circle cx="22" cy="17" r="6" fill="#fff"/>
+  </svg>`;
+  return L.divIcon({ html: `<div style="background:transparent; width:44px; height:44px;">${svg}</div>`, className:'', iconSize:[44,44], iconAnchor:[22,44] });
+}
+
+function clearManualRouteLayers(){
+  if(manualPickupMarker){ map.removeLayer(manualPickupMarker); manualPickupMarker = null; }
+  if(manualDestinationMarker){ map.removeLayer(manualDestinationMarker); manualDestinationMarker = null; }
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+}
+
+function drawManualRoute(){
+  if(!map || !manualPickupLatLng || !manualDestinationLatLng) return;
+  if(routeLine){ map.removeLayer(routeLine); routeLine = null; }
+  const geometry = [[manualPickupLatLng.lat, manualPickupLatLng.lng], [manualDestinationLatLng.lat, manualDestinationLatLng.lng]];
+  routeLine = L.polyline(geometry, { color:'#124f43', weight:4, opacity:0.95 }).addTo(map);
+  map.fitBounds(L.latLngBounds(geometry), { padding:[70,70] });
+
+  if(manualPickupMarker){ map.removeLayer(manualPickupMarker); }
+  if(manualDestinationMarker){ map.removeLayer(manualDestinationMarker); }
+  manualPickupMarker = L.marker([manualPickupLatLng.lat, manualPickupLatLng.lng], { icon:createManualMarkerIcon('#2563eb') }).addTo(map);
+  manualDestinationMarker = L.marker([manualDestinationLatLng.lat, manualDestinationLatLng.lng], { icon:createManualMarkerIcon('#ef4444') }).addTo(map);
+
+  const pickupObj = { lat: manualPickupLatLng.lat, lng: manualPickupLatLng.lng, name:'Manual pickup' };
+  const destObj = { lat: manualDestinationLatLng.lat, lng: manualDestinationLatLng.lng, name:'Manual destination' };
+  const matches = findDriversForRoute(pickupObj);
+  renderDriverMatches(matches, pickupObj, destObj);
+  document.getElementById('routePanel').classList.add('active');
+  document.getElementById('meterRoute').innerHTML = '<b>Manual pickup</b> → <b>Manual destination</b>';
+  document.getElementById('meterDistance').textContent = `${haversineKm(pickupObj.lat,pickupObj.lng,destObj.lat,destObj.lng).toFixed(1)} km`;
+  document.getElementById('meterDuration').textContent = `${Math.ceil(haversineKm(pickupObj.lat,pickupObj.lng,destObj.lat,destObj.lng) * 1.6)} min`;
+}
+
+function findDriversForRoute(pickup){
+  const hub = nearestBaseHub(pickup);
+  return DRIVERS.filter(d => d.base === hub.id).slice(0, 4);
+}
+
+function renderDriverMatches(matches){
+  const strip = document.getElementById('driverMatchStrip');
+  if(!strip) return;
+  if(!matches || !matches.length){
+    strip.innerHTML = '<div class="match-empty">No nearby drivers found yet. Choose a route to see nearby drivers.</div>';
+    return;
+  }
+  strip.innerHTML = matches.map(d => `
+    <div class="route-match-card">
+      <strong>${d.name}</strong>
+      <small>${locById[d.base].name}</small>
+      <small>🚗 ${d.vehicle}</small>
+      <a class="call-now-btn" href="tel:${d.phone.replace(/\s+/g,'')}">📞 Call</a>
+    </div>
+  `).join('');
 }
 
 /* ================================================================
@@ -1575,6 +1674,22 @@ function initMap(){
   tiles.once('load', hideLoading);
   setTimeout(hideLoading, 2500);
 
+  map.on('click', (event) => {
+    if(!manualSelectionMode) return;
+    const latlng = event.latlng;
+    if(manualSelectionMode === 'pickup'){
+      manualPickupLatLng = { lat: latlng.lat, lng: latlng.lng };
+      if(manualPickupMarker){ map.removeLayer(manualPickupMarker); }
+      manualPickupMarker = L.marker([latlng.lat, latlng.lng], { icon:createManualMarkerIcon('#2563eb') }).addTo(map);
+      if(manualDestinationLatLng) drawManualRoute();
+    } else {
+      manualDestinationLatLng = { lat: latlng.lat, lng: latlng.lng };
+      if(manualDestinationMarker){ map.removeLayer(manualDestinationMarker); }
+      manualDestinationMarker = L.marker([latlng.lat, latlng.lng], { icon:createManualMarkerIcon('#ef4444') }).addTo(map);
+      if(manualPickupLatLng) drawManualRoute();
+    }
+  });
+
   routeLayer = L.layerGroup().addTo(map);
   landmarkLayer = L.layerGroup().addTo(map);
   locationMarkers = [];
@@ -1722,6 +1837,50 @@ function plotAllPersistentLocations(){
   if(bounds.length){
     map.fitBounds(L.latLngBounds(bounds), { padding:[50,50] });
   }
+}
+
+function openLandmarkInMaps(lat, lng){
+  const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+  window.open(url, '_blank', 'noopener,noreferrer');
+}
+
+function handleServicesAction(el, source){
+  navigateTo('services');
+  if(el){ el.textContent = 'Check'; }
+  const btn = document.querySelector('.city-tour-actions .btn-outline-light');
+  if(btn){ btn.textContent = 'Check'; }
+  if(source === 'services-nav' || source === 'services-btn' || source === 'services-footer'){
+    showLandmarkModal();
+  }
+}
+
+function showLandmarkModal(){
+  let modal = document.getElementById('landmarkModal');
+  if(!modal){
+    modal = document.createElement('div');
+    modal.id = 'landmarkModal';
+    modal.className = 'landmark-modal';
+    modal.innerHTML = `
+      <div class="landmark-modal-card">
+        <div class="landmark-modal-header">
+          <h3>Landmarks in Naypyidaw</h3>
+          <button class="landmark-close" type="button" onclick="closeLandmarkModal()">×</button>
+        </div>
+        <div class="landmark-modal-body">
+          <button class="landmark-item" type="button" onclick="openLandmarkInMaps(19.7711, 96.1830)">Uppatasanti Pagoda</button>
+          <button class="landmark-item" type="button" onclick="openLandmarkInMaps(19.7562, 96.0827)">Junction Centre</button>
+          <button class="landmark-item" type="button" onclick="openLandmarkInMaps(19.7610, 96.0792)">Parliament House</button>
+          <button class="landmark-item" type="button" onclick="openLandmarkInMaps(19.7630, 96.1030)">Water Fountain Garden</button>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+  modal.classList.add('active');
+}
+
+function closeLandmarkModal(){
+  const modal = document.getElementById('landmarkModal');
+  if(modal){ modal.classList.remove('active'); }
 }
 
 function showAllLandmarkMap(){
