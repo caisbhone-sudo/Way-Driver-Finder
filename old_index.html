@@ -529,7 +529,18 @@ footer{ background:var(--teal-deep); color:rgba(255,255,255,.8); padding:44px 24
   .hero{ padding:70px 20px 170px; }
   .section-header h3{ font-size:30px; }
   .search-grid{ grid-template-columns:1fr; }
-  .trust-strip{ grid-template-columns:1fr 1fr; }
+ .trust-strip { 
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 1px;
+  }
+  .trust-strip .trust-item {
+    flex: none !important;
+    box-sizing: border-box;
+  }
+  .trust-strip .trust-item:nth-child(3) { 
+    border-top: none !important;
+  }
   .why-grid{ grid-template-columns:1fr; }
   .home-body{ margin-top: 40px !important; }
   .about-highlights{ grid-template-columns:1fr; }
