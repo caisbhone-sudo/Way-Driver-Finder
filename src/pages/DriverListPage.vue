@@ -1,25 +1,25 @@
 <template>
   <section id="driverlist" class="active">
     <SectionHeader
-      :eyebrow="$t('rosterEyebrow')"
-      :title="$t('rosterTitle')"
-      :subtitle="$t('rosterSub')"
+      :eyebrow="t('rosterEyebrow')"
+      :title="t('rosterTitle')"
+      :subtitle="t('rosterSub')"
     />
 
     <div class="search-card">
-      <div class="search-card-title">🔎 {{ $t('searchFleetTitle') }}</div>
-      <div class="search-card-sub">{{ $t('searchFleetSub') }}</div>
+      <div class="search-card-title">🔎 {{ t('searchFleetTitle') }}</div>
+      <div class="search-card-sub">{{ t('searchFleetSub') }}</div>
       <div class="roster-search-row">
         <input
           type="text"
           class="roster-search-input"
-          :placeholder="$t('rosterSearchPlaceholder')"
+          :placeholder="t('rosterSearchPlaceholder')"
           v-model="searchQuery"
           @input="updateFilter"
           autocomplete="off"
         >
         <select class="roster-vehicle-filter" v-model="vehicleFilter" @change="updateFilter">
-          <option value="">{{ $t('allVehicleTypes') }}</option>
+          <option value="">{{ t('allVehicleTypes') }}</option>
           <option v-for="v in store.vehicleTypes" :key="v" :value="v">{{ v }}</option>
         </select>
       </div>
@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { useI18n } from "vue-i18n"
 import { useDriverStore } from '@/stores/driverStore'
 import SectionHeader from '@/components/SectionHeader.vue'
 import DriverCard from '@/components/DriverCard.vue'

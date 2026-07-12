@@ -2,8 +2,8 @@
   <section class="active">
     <SectionHeader
       :eyebrow="'Admin'"
-      :title="$t('usersTitle')"
-      :subtitle="$t('usersSub')"
+      :title="t('usersTitle')"
+      :subtitle="t('usersSub')"
     />
 
     <div class="search-card" style="max-width:800px;margin:0 auto;">
@@ -17,5 +17,8 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n"
 import SectionHeader from '@/components/SectionHeader.vue'
+
+const { t } = useI18n()
 </script>

@@ -18,7 +18,9 @@ import { onMounted } from 'vue'
 const appStore = useAppStore()
 
 onMounted(() => {
-  appStore.initLanguage()
+  // Language already synced at store module level; ensure DOM classes are applied
+  document.documentElement.setAttribute('lang', appStore.currentLang === 'my' ? 'my' : 'en')
+  document.body.classList.toggle('lang-my', appStore.currentLang === 'my')
 })
 </script>
 

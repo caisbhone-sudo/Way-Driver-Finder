@@ -18,12 +18,13 @@
 ├── package.json
 ├── vite.config.js             # Dev server (port 3000) + /api proxy
 ├── public/
-├── api/                       # PHP + SQLite backend
-│   ├── config.php             # DB connection, CORS
-│   ├── init_db.php            # Schema + seed data (run once)
-│   ├── get_drivers.php        # GET drivers with routes
-│   ├── get_locations.php      # GET all locations
-│   └── submit_contact.php     # POST contact form
+├── server/                    # Node.js + SQLite backend
+│   ├── index.js               # Express server (port 8080)
+│   ├── db.js                  # DB init + seed data
+│   └── routes/
+│       ├── drivers.js         # GET /drivers
+│       ├── locations.js       # GET /locations
+│       └── contact.js         # POST /contact
 └── src/
     ├── app.js                 # Vue entry — mounts Pinia, Router, i18n
     ├── App.vue                # Root — layout shell + router-view
@@ -83,4 +84,3 @@
 - Follow SOLID principles
 - Keep code simple and maintainable
 - Use short, clear English in all communication
-lear English in all communication

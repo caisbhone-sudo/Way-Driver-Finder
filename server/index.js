@@ -17,9 +17,9 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use('/get_drivers.php', driversRouter)
-app.use('/get_locations.php', locationsRouter)
-app.use('/submit_contact.php', contactRouter)
+app.use('/drivers', driversRouter)
+app.use('/locations', locationsRouter)
+app.use('/contact', contactRouter)
 
 app.get('/ping', (req, res) => {
   res.json({ success: true, message: 'API server running' })

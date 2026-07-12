@@ -1,22 +1,21 @@
 <template>
   <header>
     <div class="header-container">
-      <button class="logo" @click="$router.push('/')" aria-label="Wayz Driver Finder">
+      <button class="logo" @click="$router.push({ name: 'home' })" aria-label="Wayz Driver Finder">
         <span class="logo-icon">🚕</span>
         <span class="logo-text">
           <h1>Wayz</h1>
-          <p>{{ $t('brandSub') }}</p>
+          <p>{{ t('brandSub') }}</p>
         </span>
       </button>
 
       <nav class="main-nav">
         <ul class="nav-links">
-          <li v-for="item in navItems" :key="item.route">
+          <li v-for="item in navItems" :key="item.name">
             <a
-              @click="navigate(item.route, item.action)"
-              :class="{ active: isActive(item.section) }"
-              :data-section="item.section"
-            >{{ $t(item.label) }}</a>
+              @click="navigate(item.name)"
+              :class="{ active: isActive(item.name) }"
+            >{{ t(item.label) }}</a>
           </li>
         </ul>
       </nav>
@@ -41,10 +40,10 @@
     </div>
     <div class="mobile-nav" :class="{ open: mobileOpen }">
       <a
-        v-for="item in navItems" :key="'m-' + item.route"
-        @click="navigate(item.route, item.action); mobileOpen = false"
-        :class="{ active: isActive(item.section) }"
-      >{{ $t(item.label) }}</a>
+        v-for="item in navItems" :key="'m-' + item.name"
+        @click="navigate(item.name); mobileOpen = false"
+        :class="{ active: isActive(item.name) }"
+      >{{ t(item.label) }}</a>
     </div>
   </header>
 </template>
@@ -52,29 +51,30 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from "vue-i18n"
 import { useAppStore } from '@/stores/appStore'
 
 const router = useRouter()
 const route = useRoute()
 const appStore = useAppStore()
+const { t } = useI18n()
 const mobileOpen = ref(false)
 
 const navItems = [
-  { route: '/', section: 'home', label: 'navHome' },
-  { route: '/drivers', section: 'drivers', label: 'navMap' },
-  { route: '/driver-list', section: 'driverlist', label: 'navDriverList' },
-  { route: '/services', section: 'services', label: 'navServices' },
-  { route: '/about', section: 'about', label: 'navAbout' },
-  { route: '/contact', section: 'contact', label: 'navContact' }
+  { name: 'home', label: 'navHome' },
+  { name: 'map', label: 'navMap' },
+  { name: 'driverlist', label: 'navDriverList' },
+  { name: 'services', label: 'navServices' },
+  { name: 'about', label: 'navAbout' },
+  { name: 'contact', label: 'navContact' }
 ]
 
-function isActive(section) {
-  const routeName = String(route.name || '')
-  return routeName === section
+function isActive(routeName) {
+  return route.name === routeName
 }
 
-function navigate(path) {
-  router.push(path)
+function navigate(routeName) {
+  router.push({ name: routeName })
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>

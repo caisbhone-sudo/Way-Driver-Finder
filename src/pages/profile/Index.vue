@@ -2,8 +2,8 @@
   <section class="active">
     <SectionHeader
       :eyebrow="'Account'"
-      :title="$t('profileTitle')"
-      :subtitle="$t('profileSub')"
+      :title="t('profileTitle')"
+      :subtitle="t('profileSub')"
     />
 
     <div class="search-card" style="max-width:600px;margin:0 auto;">
@@ -19,9 +19,11 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { useI18n } from "vue-i18n"
 import { useToast } from '@/composables/useToast'
 import SectionHeader from '@/components/SectionHeader.vue'
 
+const { t } = useI18n()
 const { showToast } = useToast()
 
 const profile = reactive({

@@ -4,25 +4,28 @@
     <LocationDetail :detail="selectedDetail" />
     <div class="map-loading" v-if="loading" id="mapLoading">
       <div class="spinner"></div>
-      <div>{{ $t('mapLoadingLbl') }}</div>
+      <div>{{ t('mapLoadingLbl') }}</div>
     </div>
     <div class="map-legend">
-      <span><i class="dot-hub"></i> {{ $t('legendHub') }}</span>
-      <span><i class="dot-spot"></i> {{ $t('legendSpot') }}</span>
-      <span><i class="dot-pick"></i> {{ $t('legendPickup') }}</span>
-      <span><i class="dot-dest"></i> {{ $t('legendDest') }}</span>
+      <span><i class="dot-hub"></i> {{ t('legendHub') }}</span>
+      <span><i class="dot-spot"></i> {{ t('legendSpot') }}</span>
+      <span><i class="dot-pick"></i> {{ t('legendPickup') }}</span>
+      <span><i class="dot-dest"></i> {{ t('legendDest') }}</span>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted, watch, nextTick } from 'vue'
+import { useI18n } from "vue-i18n"
 import L from 'leaflet'
 import { useDriverStore } from '@/stores/driverStore'
 import { useToast } from '@/composables/useToast'
 import { haversineKm } from '@/utility/helpers'
 import { createCircleMarker, createManualMarkerIcon, getLandmarkDetail } from '@/utility/mapIcons'
 import LocationDetail from '@/components/LocationDetail.vue'
+
+const { t } = useI18n()
 
 const props = defineProps({
   manualMode: { type: String, default: null },

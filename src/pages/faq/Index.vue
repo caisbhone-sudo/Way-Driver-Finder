@@ -2,8 +2,8 @@
   <section class="active">
     <SectionHeader
       :eyebrow="'FAQ'"
-      :title="$t('faqTitle')"
-      :subtitle="$t('faqSub')"
+      :title="t('faqTitle')"
+      :subtitle="t('faqSub')"
     />
 
     <div class="search-card" style="max-width:800px;margin:0 auto 30px;">
@@ -18,7 +18,10 @@
 </template>
 
 <script setup>
+import { useI18n } from "vue-i18n"
 import SectionHeader from '@/components/SectionHeader.vue'
+
+const { t } = useI18n()
 
 const faqItems = [
   { q: 'How do I find a driver?', a: 'Go to the Map page, choose your pickup location and destination, then click Find Drivers. You will see a list of drivers who serve that route.' },

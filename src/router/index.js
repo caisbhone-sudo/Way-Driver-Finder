@@ -7,9 +7,9 @@ const routes = [
     component: () => import('@/pages/HomePage.vue')
   },
   {
-    path: '/drivers',
-    name: 'drivers',
-    component: () => import('@/pages/DriversPage.vue')
+    path: '/map',
+    name: 'map',
+    component: () => import('@/pages/MapPage.vue')
   },
   {
     path: '/driver-list',
