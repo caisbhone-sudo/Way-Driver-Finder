@@ -31,8 +31,8 @@
           <button
             type="button"
             class="lang-btn"
-            :class="{ active: appStore.currentLang === 'my' }"
-            @click="appStore.setLanguage('my')"
+            :class="{ active: appStore.currentLang === 'mm' }"
+            @click="appStore.setLanguage('mm')"
           >MY</button>
         </div>
         <button class="mobile-menu-toggle" @click="mobileOpen = !mobileOpen" aria-label="Toggle menu">☰</button>

@@ -19,8 +19,8 @@ const appStore = useAppStore()
 
 onMounted(() => {
   // Language already synced at store module level; ensure DOM classes are applied
-  document.documentElement.setAttribute('lang', appStore.currentLang === 'my' ? 'my' : 'en')
-  document.body.classList.toggle('lang-my', appStore.currentLang === 'my')
+  document.documentElement.setAttribute('lang', appStore.currentLang === 'mm' ? 'my' : 'en')
+  document.body.classList.toggle('lang-my', appStore.currentLang === 'mm')
 })
 </script>
 

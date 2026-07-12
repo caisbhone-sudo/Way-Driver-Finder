@@ -9,8 +9,8 @@ export const useAppStore = defineStore('app', () => {
     currentLang.value = lang
     i18n.global.locale.value = lang
     localStorage.setItem('wayz-lang', lang)
-    document.documentElement.setAttribute('lang', lang === 'my' ? 'my' : 'en')
-    document.body.classList.toggle('lang-my', lang === 'my')
+    document.documentElement.setAttribute('lang', lang === 'mm' ? 'my' : 'en')
+    document.body.classList.toggle('lang-my', lang === 'mm')
   }
 
   return { currentLang, setLanguage }
