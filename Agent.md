@@ -10,7 +10,7 @@
 - **Routing**: Vue Router
 - **HTTP**: Axios
 - **i18n**: vue-i18n (en, mm)
-- **Backend**: PHP + SQLite (optional — app works offline with fallback data)
+- **Backend**: Node.js + Express + better-sqlite3 (optional — app works offline with fallback data)
 
 ## Project Structure
 ```
@@ -76,10 +76,11 @@
 - `npm run dev` — Start Vite dev server (port 3000)
 - `npm run build` — Build for production
 - `npm run preview` — Preview production build
-- `php -f api/init_db.php` — Initialize SQLite database with seed data
-- `php -S localhost:8080 -t api` — Start PHP API server
+- `npm run server` — Start API server (port 8080)
+- `npm start` — Run both frontend + backend concurrently
 
 ## Principles
 - Follow SOLID principles
 - Keep code simple and maintainable
 - Use short, clear English in all communication
+lear English in all communication

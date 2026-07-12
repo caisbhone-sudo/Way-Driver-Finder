@@ -6,7 +6,7 @@ Trusted rides across Naypyitaw. Pick a route, find licensed drivers, call direct
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev          # http://localhost:3000
 ```
 
 The app works offline with built-in fallback data (45 drivers, 26 locations). No backend required.
@@ -14,22 +14,22 @@ The app works offline with built-in fallback data (45 drivers, 26 locations). No
 ## Backend (optional)
 
 ```bash
-cd api
-php -f init_db.php         # Create wayz.db with seed data
-php -S localhost:8080      # Start API server
+npm run server       # Start API on port 8080
+# or run both together:
+npm start            # Frontend + backend concurrently
 ```
 
-The Vite dev server proxies `/api/*` to `localhost:8080`. See `api/` for the 5 PHP endpoints.
+The Vite dev server proxies `/api/*` to `localhost:8080`. Database auto-initializes on first request.
 
 ## Scripts
 
 | Command | Description |
 |---|---|
 | `npm run dev` | Vite dev server (port 3000) |
+| `npm run server` | Express API server (port 8080) |
+| `npm start` | Both servers concurrently |
 | `npm run build` | Production build to `dist/` |
 | `npm run preview` | Preview production build |
-| `php -f api/init_db.php` | Seed SQLite database |
-| `php -S localhost:8080 -t api` | Start PHP API |
 
 ## Features
 
@@ -44,4 +44,4 @@ The Vite dev server proxies `/api/*` to `localhost:8080`. See `api/` for the 5 P
 
 ## Tech Stack
 
-Vue 3 · Vite · Pinia · Vue Router · vue-i18n · Axios · Leaflet · PHP · SQLite
+Vue 3 · Vite · Pinia · Vue Router · vue-i18n · Axios · Leaflet · Express · SQLite (better-sqlite3)

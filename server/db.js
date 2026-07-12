@@ -1,49 +1,67 @@
-<?php
-require_once __DIR__ . '/config.php';
+import Database from 'better-sqlite3'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
 
-$db->exec("
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const DB_PATH = join(__dirname, '..', 'wayz.db')
+
+let db
+
+export function getDb() {
+  if (!db) {
+    db = new Database(DB_PATH)
+    db.pragma('journal_mode = WAL')
+    db.pragma('foreign_keys = ON')
+  }
+  return db
+}
+
+export function initDb() {
+  const db = getDb()
+
+  db.exec(`
     CREATE TABLE IF NOT EXISTS locations (
-        id TEXT PRIMARY KEY,
-        name TEXT NOT NULL,
-        lat REAL NOT NULL,
-        lng REAL NOT NULL,
-        base INTEGER DEFAULT 0
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      lat REAL NOT NULL,
+      lng REAL NOT NULL,
+      base INTEGER DEFAULT 0
     );
 
     CREATE TABLE IF NOT EXISTS drivers (
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        base TEXT NOT NULL,
-        vehicle TEXT NOT NULL,
-        car_number TEXT DEFAULT '',
-        rating REAL DEFAULT 0,
-        reviews INTEGER DEFAULT 0,
-        avatar TEXT DEFAULT '',
-        phone TEXT NOT NULL,
-        experience TEXT DEFAULT '',
-        FOREIGN KEY (base) REFERENCES locations(id)
+      id INTEGER PRIMARY KEY,
+      name TEXT NOT NULL,
+      base TEXT NOT NULL,
+      vehicle TEXT NOT NULL,
+      car_number TEXT DEFAULT '',
+      rating REAL DEFAULT 0,
+      reviews INTEGER DEFAULT 0,
+      avatar TEXT DEFAULT '',
+      phone TEXT NOT NULL,
+      experience TEXT DEFAULT '',
+      FOREIGN KEY (base) REFERENCES locations(id)
     );
 
     CREATE TABLE IF NOT EXISTS driver_routes (
-        driver_id INTEGER NOT NULL,
-        location_id TEXT NOT NULL,
-        PRIMARY KEY (driver_id, location_id),
-        FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE CASCADE,
-        FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE
+      driver_id INTEGER NOT NULL,
+      location_id TEXT NOT NULL,
+      PRIMARY KEY (driver_id, location_id),
+      FOREIGN KEY (driver_id) REFERENCES drivers(id) ON DELETE CASCADE,
+      FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE
     );
 
     CREATE TABLE IF NOT EXISTS contact_messages (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT NOT NULL,
-        email TEXT NOT NULL,
-        subject TEXT NOT NULL,
-        message TEXT NOT NULL,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      email TEXT NOT NULL,
+      subject TEXT NOT NULL,
+      message TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
-");
+  `)
 
-// Seed locations
-$locations = [
+  // Seed locations
+  const locations = [
     ["ocean", "Ocean Super Center Hub (Ottarathiri)", 19.817165195371956, 96.15440628725972, 1],
     ["train-station", "Naypyidaw Central Railway Station", 19.85, 96.1961, 1],
     ["museum", "National Museum & Gems Commercial Area", 19.734, 96.1119, 1],
@@ -70,15 +88,15 @@ $locations = [
     ["water-fountain-garden", "Water Fountain Garden", 19.7630, 96.1030, 0],
     ["parliament-viewpoint", "Parliament Building (Viewpoint)", 19.7610, 96.0792, 0],
     ["yan-aung-myin-pagoda", "Yan Aung Myin Pagoda", 19.7560, 96.1490, 0]
-];
+  ]
 
-$stmt = $db->prepare("INSERT OR IGNORE INTO locations (id, name, lat, lng, base) VALUES (?, ?, ?, ?, ?)");
-foreach ($locations as $loc) {
-    $stmt->execute($loc);
-}
+  const insertLoc = db.prepare("INSERT OR IGNORE INTO locations (id, name, lat, lng, base) VALUES (?, ?, ?, ?, ?)")
+  for (const loc of locations) {
+    insertLoc.run(...loc)
+  }
 
-// Seed drivers (45 drivers)
-$drivers = [
+  // Seed drivers (45)
+  const drivers = [
     [1,"Ko Nyan Lin Aung","ocean","EV:Leapmotor T-03","NPW-HH/2278",4.7,181,"👨‍💼","+95 9954777496","8 years"],
     [2,"Ko Toe Wai","ocean","Toyota Probox","NPW-BB/1560",4.9,187,"🤵‍♂️","+95 9782220250","7 years"],
     [3,"Ko Htet Oo","ocean","Toyota Probox","MDY-6B/2895",4.7,104,"👨‍💼","+95 9266669650","6 years"],
@@ -124,63 +142,64 @@ $drivers = [
     [43,"Kaung Sat","myoma","OE Way","",4.8,143,"👨‍💼","+95 966 555 043","11 years"],
     [44,"Ei Ei Phyo","junction","OE Way","",4.8,144,"👩‍💼","+95 966 555 044","12 years"],
     [45,"Myo Min","hospital","OE Way","",4.8,145,"👨‍💼","+95 966 555 045","13 years"]
-];
+  ]
 
-$stmtDriver = $db->prepare("INSERT OR IGNORE INTO drivers (id, name, base, vehicle, car_number, rating, reviews, avatar, phone, experience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-foreach ($drivers as $d) {
-    $stmtDriver->execute($d);
-}
+  const insertDriver = db.prepare("INSERT OR IGNORE INTO drivers (id, name, base, vehicle, car_number, rating, reviews, avatar, phone, experience) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")
+  for (const d of drivers) {
+    insertDriver.run(...d)
+  }
 
-// Seed driver routes
-$driverRoutes = [
-    1 => ["airport","forestry-uni","hospital","pyinmana-market"],
-    2 => ["junction","train-station","foreign-ministry","yau","palace","hospital"],
-    3 => ["transport-ministry","yau","train-station","airport","palace","pyinmana-market"],
-    4 => ["university","education-ministry","junction","forestry-uni","transport-ministry","foreign-ministry"],
-    5 => ["foreign-ministry","forestry-uni","palace","pyinmana-market","education-ministry","transport-ministry"],
-    6 => ["museum","thapyaykone","education-ministry","foreign-ministry"],
-    7 => ["ocean","thapyaykone","myoma","palace","parliament"],
-    8 => ["pyinmana-market","education-ministry","university","museum","junction"],
-    9 => ["myoma","pagoda","train-station","airport","parliament"],
-    10 => ["palace","ocean","university","airport"],
-    11 => ["pyinmana-market","university","myoma","train-station","foreign-ministry"],
-    12 => ["train-station","hospital","airport","parliament"],
-    13 => ["transport-ministry","yau","education-ministry","foreign-ministry","university","myoma"],
-    14 => ["thapyaykone","palace","hypermarket","museum"],
-    15 => ["junction","thapyaykone","pagoda","foreign-ministry","palace"],
-    16 => ["thapyaykone","transport-ministry","forestry-uni","myoma","pagoda","museum"],
-    17 => ["education-ministry","airport","foreign-ministry","transport-ministry","hospital","parliament"],
-    18 => ["pagoda","airport","hypermarket","forestry-uni","train-station"],
-    19 => ["foreign-ministry","yau","train-station","myoma","forestry-uni","hospital"],
-    20 => ["museum","hypermarket","pyinmana-market","parliament","hospital"],
-    21 => ["ocean","transport-ministry","yau","parliament","airport","museum"],
-    22 => ["pagoda","hypermarket","museum","train-station","hospital","palace"],
-    23 => ["pyinmana-market","myoma","hospital","yau","train-station"],
-    24 => ["yau","palace","foreign-ministry","hospital"],
-    25 => ["thapyaykone","train-station","ocean","education-ministry","pagoda","airport"],
-    26 => ["hospital","pyinmana-market","ocean","palace","junction"],
-    27 => ["thapyaykone","yau","pagoda","airport","university"],
-    28 => ["yau","train-station","pyinmana-market","forestry-uni"],
-    29 => ["train-station","palace","museum","pyinmana-market","transport-ministry"],
-    30 => ["myoma","yau","pyinmana-market","pagoda","thapyaykone"],
-    31 => ["yau","parliament","museum","education-ministry","hospital","university"],
-    32 => ["thapyaykone","museum","parliament","forestry-uni","foreign-ministry","airport"],
-    33 => ["ocean","hypermarket","palace","parliament","transport-ministry"],
-    34 => ["foreign-ministry","airport","museum","transport-ministry","junction"],
-    35 => ["palace","foreign-ministry","forestry-uni","yau","museum"],
-    36 => ["ocean","education-ministry","pagoda","junction"],
-];
+  // Seed routes
+  const routes = {
+    1: ["airport","forestry-uni","hospital","pyinmana-market"],
+    2: ["junction","train-station","foreign-ministry","yau","palace","hospital"],
+    3: ["transport-ministry","yau","train-station","airport","palace","pyinmana-market"],
+    4: ["university","education-ministry","junction","forestry-uni","transport-ministry","foreign-ministry"],
+    5: ["foreign-ministry","forestry-uni","palace","pyinmana-market","education-ministry","transport-ministry"],
+    6: ["museum","thapyaykone","education-ministry","foreign-ministry"],
+    7: ["ocean","thapyaykone","myoma","palace","parliament"],
+    8: ["pyinmana-market","education-ministry","university","museum","junction"],
+    9: ["myoma","pagoda","train-station","airport","parliament"],
+    10: ["palace","ocean","university","airport"],
+    11: ["pyinmana-market","university","myoma","train-station","foreign-ministry"],
+    12: ["train-station","hospital","airport","parliament"],
+    13: ["transport-ministry","yau","education-ministry","foreign-ministry","university","myoma"],
+    14: ["thapyaykone","palace","hypermarket","museum"],
+    15: ["junction","thapyaykone","pagoda","foreign-ministry","palace"],
+    16: ["thapyaykone","transport-ministry","forestry-uni","myoma","pagoda","museum"],
+    17: ["education-ministry","airport","foreign-ministry","transport-ministry","hospital","parliament"],
+    18: ["pagoda","airport","hypermarket","forestry-uni","train-station"],
+    19: ["foreign-ministry","yau","train-station","myoma","forestry-uni","hospital"],
+    20: ["museum","hypermarket","pyinmana-market","parliament","hospital"],
+    21: ["ocean","transport-ministry","yau","parliament","airport","museum"],
+    22: ["pagoda","hypermarket","museum","train-station","hospital","palace"],
+    23: ["pyinmana-market","myoma","hospital","yau","train-station"],
+    24: ["yau","palace","foreign-ministry","hospital"],
+    25: ["thapyaykone","train-station","ocean","education-ministry","pagoda","airport"],
+    26: ["hospital","pyinmana-market","ocean","palace","junction"],
+    27: ["thapyaykone","yau","pagoda","airport","university"],
+    28: ["yau","train-station","pyinmana-market","forestry-uni"],
+    29: ["train-station","palace","museum","pyinmana-market","transport-ministry"],
+    30: ["myoma","yau","pyinmana-market","pagoda","thapyaykone"],
+    31: ["yau","parliament","museum","education-ministry","hospital","university"],
+    32: ["thapyaykone","museum","parliament","forestry-uni","foreign-ministry","airport"],
+    33: ["ocean","hypermarket","palace","parliament","transport-ministry"],
+    34: ["foreign-ministry","airport","museum","transport-ministry","junction"],
+    35: ["palace","foreign-ministry","forestry-uni","yau","museum"],
+    36: ["ocean","education-ministry","pagoda","junction"]
+  }
 
-$allLocationIds = ["ocean","train-station","museum","airport","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"];
-for ($i = 37; $i <= 45; $i++) {
-    $driverRoutes[$i] = $allLocationIds;
-}
+  const allLocIds = ["ocean","train-station","museum","airport","thapyaykone","university","myoma","junction","hospital","yau","forestry-uni","hypermarket","pyinmana-market","parliament","palace","transport-ministry","education-ministry","foreign-ministry","pagoda"]
+  for (let i = 37; i <= 45; i++) {
+    routes[i] = allLocIds
+  }
 
-$stmtRoute = $db->prepare("INSERT OR IGNORE INTO driver_routes (driver_id, location_id) VALUES (?, ?)");
-foreach ($driverRoutes as $driverId => $routes) {
-    foreach ($routes as $locId) {
-        $stmtRoute->execute([$driverId, $locId]);
+  const insertRoute = db.prepare("INSERT OR IGNORE INTO driver_routes (driver_id, location_id) VALUES (?, ?)")
+  for (const [driverId, locIds] of Object.entries(routes)) {
+    for (const locId of locIds) {
+      insertRoute.run(Number(driverId), locId)
     }
-}
+  }
 
-jsonResponse(['success' => true, 'message' => 'Database initialized with seed data']);
+  return { success: true, message: 'Database initialized with seed data' }
+}
